@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { IonContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [IonContent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
 
