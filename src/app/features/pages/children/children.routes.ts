@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { ChildrenListComponent } from './children-list/children-list.component';
 import { ChildrenFormComponent } from './children-form/children-form.component';
 import { ChildrenDetailsComponent } from './children-details/children-details.component';
+import { ChildrenPendenciesComponent } from './children-pendencies/children-pendencies.component';
 
 export const routes: Routes = [
   {
@@ -19,5 +20,9 @@ export const routes: Routes = [
   {
     path: 'details/:id',
     component: ChildrenDetailsComponent,
+  },
+  {
+    path: 'pendencies/:id',
+    component: ChildrenPendenciesComponent,
   },
 ];
