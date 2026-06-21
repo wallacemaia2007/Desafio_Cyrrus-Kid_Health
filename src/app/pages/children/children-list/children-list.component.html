@@ -1,0 +1,66 @@
+<div class="page-container">
+  <section class="page-header">
+    <h2 class="text-dark text-3xl font-bold mb-2">Vacinação Infantil</h2>
+    <p class="text-text-light text-lg mb-6">Localize a criança no sistema para verificar o status de vacinação.</p>
+
+    <div class="relative">
+      <ion-searchbar placeholder="Digite o nome da criança..." (ionInput)="onSearch($event)"
+        class="custom-searchbar shadow-sm" animated="true">
+      </ion-searchbar>
+    </div>
+  </section>
+
+  <section class="page-content">
+    <div class="grid gap-4">
+      <ng-container *ngIf="(filteredChildren$ | async) as children; else loading">
+        <div *ngIf="children.length === 0"
+          class="text-center py-16 bg-white rounded-3xl border border-border-light shadow-sm">
+          <mat-icon class="text-accent scale-[2.0] mb-6">search_off</mat-icon>
+          <p class="text-dark font-semibold text-xl">Nenhuma criança encontrada.</p>
+          <p class="text-text-light">Tente buscar por outro nome.</p>
+        </div>
+
+        <ion-card *ngFor="let child of children" (click)="goToDetails(child.id)"
+          class="m-0 mb-4 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all cursor-pointer rounded-3xl border border-border-light overflow-hidden bg-white">
+          <ion-card-content class="p-0">
+            <div class="flex items-center p-6">
+              <div class="flex-grow">
+                <div class="flex justify-between items-start mb-2">
+                  <div>
+                    <h3 class="text-dark font-bold text-xl mb-1">{{ child.name }}</h3>
+                    <p class="text-text-light text-sm flex items-center">
+                      Nascimento: {{ child.birthDate | date:'dd/MM/yyyy' }}
+                    </p>
+                  </div>
+
+                  <ion-badge
+                    [color]="getVaccineStatus(child) === 'complete' ? 'success' : (getVaccineStatus(child) === 'partial' ? 'warning' : 'danger')"
+                    class="rounded-xl px-4 py-1.5 text-xs font-bold uppercase tracking-wider">
+                    {{ child.pendingVaccines === 0 ? 'Completo' : child.pendingVaccines + ' Pendentes' }}
+                  </ion-badge>
+                </div>
+
+                <div class="mt-4">
+                  <div class="flex justify-between text-xs mb-2">
+                    <span class="text-text-light font-bold uppercase tracking-tighter">Status de Imunização</span>
+                    <span class="text-dark font-black">{{ child.appliedVaccines }} / {{ child.totalVaccines }}</span>
+                  </div>
+                  <mat-progress-bar mode="determinate" [value]="getVaccineProgress(child)"
+                    class="h-2.5 rounded-full custom-progress-bar">
+                  </mat-progress-bar>
+                </div>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ng-container>
+
+      <ng-template #loading>
+        <div class="flex flex-col items-center justify-center py-24">
+          <ion-spinner name="crescent" color="primary"></ion-spinner>
+          <p class="mt-4 text-text-light font-medium">Buscando informações...</p>
+        </div>
+      </ng-template>
+    </div>
+  </section>
+</div>
