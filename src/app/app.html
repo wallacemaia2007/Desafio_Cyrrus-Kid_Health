@@ -1,13 +1,9 @@
-<!-- 
-  Para scroll tradicional de site Desktop, removemos o <ion-app> 
-  e deixamos o HTML fluir naturalmente.
--->
-<div id="main-content" class="app-shell">
-  <app-header></app-header>
-
-  <main class="app-main">
-    <router-outlet></router-outlet>
-  </main>
-
-  <app-footer></app-footer>
-</div>
+<ion-app>
+  <div id="main-content" class="app-shell">
+    <app-header></app-header>
+    <main class="app-main">
+      <router-outlet></router-outlet>
+    </main>
+    <app-footer></app-footer>
+  </div>
+</ion-app>

@@ -1,7 +1,16 @@
 import { Component, ChangeDetectionStrategy, signal, inject, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { IonicModule, MenuController, Platform } from '@ionic/angular';
+// Importe os componentes individuais do @ionic/angular/standalone
+import {
+  MenuController,
+  Platform,
+  IonHeader,
+  IonToolbar,
+  IonButtons,
+  IonButton,
+  IonIcon,
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { menuOutline, closeOutline } from 'ionicons/icons';
 
@@ -14,7 +23,17 @@ export interface NavItem {
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, IonicModule],
+  // Adicione os componentes individuais aqui
+  imports: [
+    CommonModule,
+    RouterLink,
+    RouterLinkActive,
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonButton,
+    IonIcon,
+  ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
