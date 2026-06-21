@@ -2,6 +2,8 @@ import { Component, ChangeDetectionStrategy, signal, inject, HostListener } from
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { IonicModule, MenuController, Platform } from '@ionic/angular';
+import { addIcons } from 'ionicons';
+import { menuOutline, closeOutline } from 'ionicons/icons';
 
 export interface NavItem {
   label: string;
@@ -32,6 +34,7 @@ export class HeaderComponent {
   ];
 
   constructor() {
+    addIcons({ menuOutline, closeOutline });
     this.checkPlatform();
   }
 

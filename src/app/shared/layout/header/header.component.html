@@ -42,35 +42,3 @@
         </div>
     </ion-toolbar>
 </ion-header>
-
-<ion-menu side="end" menuId="main-menu" contentId="main-content" class="mobile-drawer">
-    <ion-header class="ion-no-border">
-        <ion-toolbar class="px-4 py-2 border-b border-white/10 bg-dark">
-            <div class="flex items-center justify-between w-full">
-                <div class="flex items-center gap-3">
-                    <span
-                        class="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">KH</span>
-                    <span class="font-bold text-white text-sm">Kid Health</span>
-                </div>
-                <ion-buttons slot="end">
-                    <ion-button (click)="closeMenu()" aria-label="Fechar Menu" class="text-white/70">
-                        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
-                    </ion-button>
-                </ion-buttons>
-            </div>
-        </ion-toolbar>
-    </ion-header>
-
-    <ion-content class="ion-padding bg-dark">
-        <ion-list lines="none" class="bg-transparent">
-            @for (link of navLinks; track trackByLabel($index, link)) {
-            <ion-item class="mb-2 rounded-xl transition-all duration-200"
-                (click)="link.route ? closeMenu() : scrollTo($event, link.href!)" button detail="false">
-                <ion-label class="text-sm font-semibold text-white">
-                    {{ link.label }}
-                </ion-label>
-            </ion-item>
-            }
-        </ion-list>
-    </ion-content>
-</ion-menu>

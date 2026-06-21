@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 100; 
 }
 
 ion-toolbar {
@@ -22,24 +22,6 @@ ion-toolbar {
     --padding-top: 4px;
     --padding-bottom: 4px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  }
-}
-
-.mobile-drawer {
-  --width: 300px;
-  --background: #473C33;
-
-  ion-content {
-    --background: #473C33;
-    --color: white;
-  }
-
-  ion-item {
-    --background: transparent;
-    --background-focused: rgba(255, 255, 255, 0.1);
-    --background-hover: rgba(255, 255, 255, 0.05);
-    --border-radius: 12px;
-    margin-bottom: 4px;
   }
 }
 
