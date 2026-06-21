@@ -1,21 +1,15 @@
 .app-shell {
-  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #f5f7fa;
 }
 
-.mobile-drawer {
-  --width: 300px;
-  --background: #473c33;
+.app-main {
+  flex: 1 0 auto;
+  width: 100%;
+}
 
-  ion-content {
-    --background: #473c33;
-    --color: white;
-  }
-
-  ion-item {
-    --background: transparent;
-    --background-focused: rgba(255, 255, 255, 0.1);
-    --background-hover: rgba(255, 255, 255, 0.05);
-    --border-radius: 12px;
-    margin-bottom: 4px;
-  }
+app-footer {
+  flex-shrink: 0;
 }

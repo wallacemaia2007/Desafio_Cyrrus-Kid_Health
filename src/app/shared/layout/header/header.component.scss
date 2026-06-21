@@ -1,14 +1,14 @@
 :host {
   display: block;
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100; 
+  z-index: 100;
 }
 
 ion-toolbar {
-  --background: transparent;
+  --background: #473c33;
   --padding-top: 8px;
   --padding-bottom: 8px;
   --border-width: 0;

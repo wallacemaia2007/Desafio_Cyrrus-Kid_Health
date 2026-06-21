@@ -4,6 +4,24 @@
 
 @import '@ionic/angular/css/core.css';
 @import '@ionic/angular/css/normalize.css';
-@import '@ionic/angular/css/structure.css';
+// REMOVIDO: @import '@ionic/angular/css/structure.css'; 
+// O structure.css é quem trava o scroll do body.
 @import '@ionic/angular/css/display.css';
 @import '@ionic/angular/css/flex-utils.css';
+
+/* Forçamos o scroll nativo do navegador */
+html,
+body {
+    height: auto !important;
+    min-height: 100% !important;
+    overflow: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* O Ionic coloca classes que podem travar o scroll em componentes internos */
+.ion-page {
+    display: block !important;
+    position: relative !important;
+    overflow: visible !important;
+    contain: none !important; // Libera o conteúdo para expandir
+}
