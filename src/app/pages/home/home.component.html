@@ -1,10 +1,71 @@
-<div class="page-container">
-  <section class="page-header">
-    <h1 class="text-3xl font-bold text-dark">Kid Health</h1>
-    <p class="text-text-light text-lg">Bem-vindo ao sistema de vacinação infantil</p>
-  </section>
+<section class="hero">
+  <div class="hero-slides">
+    @for (slide of heroSlides; track slide.image; let i = $index) {
+    <div class="hero-slide" [class.active]="i === activeSlide()">
+      <img [src]="slide.image" [alt]="slide.alt" loading="eager" />
+      <div class="hero-overlay"></div>
+    </div>
+    }
+  </div>
 
-  <section class="page-content">
-    <p>home works!</p>
-  </section>
-</div>
+  <div class="hero-content">
+    <span class="hero-badge">Kid Health</span>
+    <h1 class="hero-title">Cuidando da vacinação<br />do seu filho com carinho</h1>
+    <p class="hero-subtitle">
+      Acompanhe a carteira de vacinação, fique por dentro das campanhas e nunca perca uma dose importante.
+    </p>
+    <div class="hero-actions">
+      <a routerLink="/children" class="btn-primary">Ver minhas crianças</a>
+      <a routerLink="/campaigns" class="btn-secondary">Campanhas ativas</a>
+    </div>
+  </div>
+
+  <div class="hero-dots">
+    @for (slide of heroSlides; track slide.image; let i = $index) {
+    <button type="button" class="hero-dot" [class.active]="i === activeSlide()"
+      [attr.aria-label]="'Ir para slide ' + (i + 1)" (click)="goToSlide(i)"></button>
+    }
+  </div>
+</section>
+
+<section class="page-container">
+  <div class="section-header">
+    <div>
+      <h2 class="section-title">Campanhas de Vacinação</h2>
+      <p class="section-subtitle">Confira as campanhas em destaque para o seu filho.</p>
+    </div>
+    <a routerLink="/campaigns" class="section-link">Ver todas</a>
+  </div>
+
+  @if (campaigns$ | async; as campaigns) {
+  <div class="campaigns-grid">
+    @for (campaign of campaigns; track campaign.id) {
+    <article class="campaign-card" [routerLink]="['/campaigns', campaign.id]">
+      <div class="campaign-card-top">
+        <span class="campaign-status" [class.status-active]="campaign.active" [class.status-ended]="!campaign.active">
+          {{ campaign.active ? 'Em andamento' : 'Encerrada' }}
+        </span>
+        <ion-icon name="medkit-outline" aria-hidden="true"></ion-icon>
+      </div>
+
+      <h3 class="campaign-title">{{ campaign.title }}</h3>
+      <p class="campaign-description">{{ campaign.description }}</p>
+
+      <div class="campaign-footer">
+        <span class="campaign-audience">
+          <ion-icon name="people-outline" aria-hidden="true"></ion-icon>
+          {{ campaign.targetAudience }}
+        </span>
+        <span class="campaign-date">
+          até {{ campaign.endDate | date: 'dd/MM/yyyy' }}
+        </span>
+      </div>
+    </article>
+    }
+  </div>
+  } @else {
+  <div class="campaigns-loading">
+    <ion-spinner name="crescent" color="primary"></ion-spinner>
+  </div>
+  }
+</section>

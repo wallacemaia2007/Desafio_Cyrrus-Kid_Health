@@ -2,14 +2,14 @@ import { Injectable, inject } from '@angular/core';
 import {
   Firestore,
   collection,
-  collectionData,
   doc,
-  docData,
   addDoc,
   updateDoc,
   deleteDoc,
+  onSnapshot,
+  Unsubscribe,
 } from '@angular/fire/firestore';
-import { Observable, map } from 'rxjs';
+import { Observable, map, catchError, of } from 'rxjs';
 import { Campaign } from '../../shared/model/campaign';
 import { convertDates, convertToTimestamps } from '../../shared/utils/firestore-converters';
 
@@ -21,16 +21,41 @@ export class CampaignService {
   private campaignsCollection = collection(this.firestore, 'campaigns');
 
   getCampaigns(): Observable<Campaign[]> {
-    return collectionData(this.campaignsCollection, { idField: 'id' }).pipe(
-      map((docs) => docs.map((d) => convertDates<Campaign>(d, ['startDate', 'endDate']))),
+    return new Observable<Campaign[]>((subscriber) => {
+      const unsub: Unsubscribe = onSnapshot(
+        this.campaignsCollection,
+        (snapshot) => {
+          const campaigns = snapshot.docs.map((d) =>
+            convertDates<Campaign>({ id: d.id, ...d.data() }, ['startDate', 'endDate']),
+          );
+          subscriber.next(campaigns);
+        },
+        (err) => subscriber.error(err),
+      );
+      return { unsubscribe: () => unsub() };
+    }).pipe(
+      catchError((err) => {
+        console.error('Erro ao carregar campanhas do Firestore:', err);
+        return of([]);
+      }),
     );
   }
 
   getCampaignById(id: string): Observable<Campaign> {
     const ref = doc(this.firestore, 'campaigns', id);
-    return docData(ref, { idField: 'id' }).pipe(
-      map((d) => convertDates<Campaign>(d, ['startDate', 'endDate'])),
-    );
+    return new Observable<Campaign>((subscriber) => {
+      const unsub: Unsubscribe = onSnapshot(
+        ref,
+        (snap) => {
+          if (snap.exists()) {
+            const data = convertDates<Campaign>({ id: snap.id, ...snap.data() }, ['startDate', 'endDate']);
+            subscriber.next(data);
+          }
+        },
+        (err) => subscriber.error(err),
+      );
+      return { unsubscribe: () => unsub() };
+    });
   }
 
   addCampaign(campaign: Omit<Campaign, 'id'>) {
