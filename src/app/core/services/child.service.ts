@@ -10,7 +10,7 @@ import {
   Unsubscribe,
 } from '@angular/fire/firestore';
 import { Observable, map, catchError, of } from 'rxjs';
-import { Child } from '../../shared/model/child';
+import { Child, ChildVaccineItem } from '../../shared/model/child';
 import { convertDates, convertToTimestamps } from '../../shared/utils/firestore-converters';
 
 @Injectable({
@@ -20,13 +20,23 @@ export class ChildService {
   private firestore = inject(Firestore);
   private childrenCollection = collection(this.firestore, 'children');
 
+  private convertChild(data: any): Child {
+    const child = convertDates<Child>(data, ['birthDate']);
+    if (child.vaccines) {
+      child.vaccines = child.vaccines.map((v) =>
+        convertDates<ChildVaccineItem>(v, ['scheduledDate', 'applicationDate']),
+      );
+    }
+    return child;
+  }
+
   getChildren(): Observable<Child[]> {
     return new Observable<Child[]>((subscriber) => {
       const unsub: Unsubscribe = onSnapshot(
         this.childrenCollection,
         (snapshot) => {
           const children = snapshot.docs.map((d) =>
-            convertDates<Child>({ id: d.id, ...d.data() }, ['birthDate']),
+            this.convertChild({ id: d.id, ...d.data() }),
           );
           subscriber.next(children);
         },
@@ -48,7 +58,7 @@ export class ChildService {
         ref,
         (snap) => {
           if (snap.exists()) {
-            const data = convertDates<Child>({ id: snap.id, ...snap.data() }, ['birthDate']);
+            const data = this.convertChild({ id: snap.id, ...snap.data() });
             subscriber.next(data);
           }
         },

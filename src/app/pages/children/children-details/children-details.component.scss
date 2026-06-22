@@ -1,0 +1,326 @@
+:host {
+    --ion-background-color: #f5f7fa;
+    display: block;
+}
+
+// ===== Hero =====
+.details-hero {
+    position: relative;
+    height: 42vh;
+    min-height: 280px;
+    max-height: 420px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+}
+
+.details-hero-bg {
+    position: absolute;
+    inset: 0;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+}
+
+.details-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+            rgba(71, 60, 51, 0.55) 0%,
+            rgba(71, 60, 51, 0.45) 40%,
+            rgba(71, 60, 51, 0.85) 100%);
+}
+
+.details-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1.5rem 3.5rem;
+    color: #ffffff;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    margin-bottom: 1rem;
+    transition: color 0.2s ease;
+
+    ion-icon {
+        font-size: 1.125rem;
+    }
+
+    &:hover {
+        color: #ffffff;
+    }
+}
+
+.details-hero-badge {
+    display: inline-block;
+    background: rgba(171, 194, 112, 0.18);
+    border: 1px solid rgba(171, 194, 112, 0.5);
+    color: #abc270;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.9rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+}
+
+.details-hero-title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 0;
+}
+
+// ===== Card flutuante =====
+.details-page-content {
+    margin-top: -2.5rem;
+    position: relative;
+    z-index: 3;
+    padding-bottom: 3rem;
+}
+
+.details-card {
+    background: #ffffff;
+    border: 1px solid #e8ecf1;
+    border-radius: 22px;
+    padding: 1.75rem;
+    box-shadow: 0 16px 40px -12px rgba(71, 60, 51, 0.18);
+    display: flex;
+    flex-direction: column;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.details-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    ion-icon {
+        font-size: 1.5rem;
+        color: #fda769;
+    }
+}
+
+.child-title {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #473c33;
+    margin: 0 0 0.5rem;
+    line-height: 1.35;
+}
+
+.child-description {
+    font-size: 0.9375rem;
+    color: #8a8f9a;
+    line-height: 1.55;
+    margin: 0 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+
+    ion-icon {
+        color: #abc270;
+        font-size: 1rem;
+    }
+}
+
+.progress-section {
+    margin-bottom: 1.5rem;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.progress-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #8a8f9a;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.progress-value {
+    font-size: 0.8125rem;
+    font-weight: 800;
+    color: #473c33;
+}
+
+.progress-bar {
+    height: 8px;
+    background: #e8ecf1;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #abc270;
+    border-radius: 999px;
+    transition: width 0.4s ease;
+}
+
+.details-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.detail-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.detail-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #8a8f9a;
+}
+
+.detail-text {
+    font-size: 0.9375rem;
+    color: #473c33;
+    margin: 0;
+    line-height: 1.5;
+}
+
+// ===== Lista de vacinas =====
+.vaccine-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.vaccine-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.7rem 0.9rem;
+    background: #f5f7fa;
+    border-radius: 12px;
+}
+
+.vaccine-item-info {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 0;
+
+    ion-icon {
+        font-size: 1.125rem;
+        flex-shrink: 0;
+
+        &.applied {
+            color: #abc270;
+        }
+
+        &.pending {
+            color: #fda769;
+        }
+    }
+}
+
+.vaccine-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #473c33;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.vaccine-date {
+    font-size: 0.8125rem;
+    color: #8a8f9a;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+// ===== Ações =====
+.details-actions {
+    display: flex;
+    gap: 0.875rem;
+    flex-wrap: wrap;
+    border-top: 1px dashed #e8ecf1;
+    padding-top: 1.25rem;
+}
+
+.btn-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.7rem 1.4rem;
+    border-radius: 14px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    flex: 1;
+
+    ion-icon {
+        font-size: 1.05rem;
+    }
+}
+
+.btn-action-primary {
+    background: #abc270;
+    color: #2f3a1f;
+
+    &:hover {
+        background: #99b25c;
+        transform: translateY(-2px);
+    }
+}
+
+.btn-action-secondary {
+    background: #ffffff;
+    color: #473c33;
+    border: 1px solid #e8ecf1;
+
+    &:hover {
+        border-color: #fda769;
+        color: #fda769;
+        transform: translateY(-2px);
+    }
+}
+
+@media (max-width: 575px) {
+    .details-actions {
+        flex-direction: column;
+    }
+
+    .btn-action {
+        width: 100%;
+    }
+}

@@ -1,7 +1,89 @@
-<div class="page-container">
-  <app-page-header title="Detalhes da Criança" />
+@if (child$ | async; as child) {
+<section class="details-hero">
+  <div class="details-hero-bg">
+    <img
+      src="https://img.magnific.com/fotos-gratis/doutor-dando-um-high-five-a-uma-menina-sorridente-sentada-no-colo-de-sua-mae-durante-uma-consulta-medica_329181-7634.jpg?semt=ais_hybrid&w=740&q=80"
+      alt="Foto de fundo" loading="eager" />
+    <div class="details-hero-overlay"></div>
+  </div>
 
-  <section class="page-content">
-    <p>children-details works!</p>
-  </section>
-</div>
+  <div class="details-hero-content">
+    <a class="back-link" routerLink="/children">
+      <ion-icon name="arrow-back-outline" aria-hidden="true"></ion-icon>
+      Voltar
+    </a>
+    <h1 class="details-hero-title">{{ child.name }}</h1>
+  </div>
+</section>
+
+<section class="page-container details-page-content">
+  <article class="details-card">
+    <div class="details-card-top">
+      <app-status-badge [status]="vaccineStatus(child)"
+        [label]="child.pendingVaccines === 0 ? 'Completo' : child.pendingVaccines + ' Pendentes'" />
+      <ion-icon name="happy-outline" aria-hidden="true"></ion-icon>
+    </div>
+
+    <h3 class="child-title">{{ child.name }}</h3>
+    <p class="child-description">
+      <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+      Nascimento: {{ child.birthDate | date:'dd/MM/yyyy' }}
+    </p>
+
+    @if (child.responsible) {
+    <p class="child-description">
+      <ion-icon name="happy-outline" aria-hidden="true"></ion-icon>
+      Responsável: {{ child.responsible }}
+    </p>
+    }
+
+    <div class="progress-section">
+      <div class="progress-header">
+        <span class="progress-label">Status de Imunização</span>
+        <span class="progress-value">{{ child.appliedVaccines }} / {{ child.totalVaccines }}</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="vaccineProgress(child)"></div>
+      </div>
+    </div>
+
+    <div class="details-body">
+      <div class="detail-section">
+        <span class="detail-label">Carteira de Vacinação</span>
+
+        @if (child.vaccines && child.vaccines.length > 0) {
+        <ul class="vaccine-list">
+          @for (vaccine of child.vaccines; track vaccine.vaccineId) {
+          <li class="vaccine-item">
+            <div class="vaccine-item-info">
+              <ion-icon [name]="vaccine.applied ? 'checkmark-circle-outline' : 'time-outline'"
+                [class.applied]="vaccine.applied" [class.pending]="!vaccine.applied" aria-hidden="true"></ion-icon>
+              <span class="vaccine-name">{{ vaccine.vaccineName }}</span>
+            </div>
+            <span class="vaccine-date">
+              {{ (vaccine.applied ? vaccine.applicationDate : vaccine.scheduledDate) | date:'dd/MM/yyyy' }}
+            </span>
+          </li>
+          }
+        </ul>
+        } @else {
+        <p class="detail-text">Nenhuma vacina cadastrada ainda.</p>
+        }
+      </div>
+    </div>
+
+    <div class="details-actions">
+      <a [routerLink]="['/children/edit', child.id]" class="btn-action btn-action-primary">
+        <ion-icon name="create-outline" aria-hidden="true"></ion-icon>
+        Editar
+      </a>
+      <a [routerLink]="['/children/pendencies', child.id]" class="btn-action btn-action-secondary">
+        <ion-icon name="shield-checkmark-outline" aria-hidden="true"></ion-icon>
+        Ver Pendências
+      </a>
+    </div>
+  </article>
+</section>
+} @else {
+<app-loading-state />
+}
