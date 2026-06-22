@@ -8,13 +8,13 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { IonIcon, IonSpinner } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { peopleOutline, medkitOutline } from 'ionicons/icons';
+import { IonSpinner } from '@ionic/angular/standalone';
 import { Observable, interval, map } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Campaign } from '../../shared/model/campaign';
 import { CampaignService } from '../../core/services/campaign.service';
+import { CampaignCardComponent } from '../../shared/components/campaign-card/campaign-card.component';
+import { PageHeaderComponent } from '../../shared/components/page-header/page-header.component';
 
 interface HeroSlide {
   image: string;
@@ -24,7 +24,7 @@ interface HeroSlide {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, IonIcon, IonSpinner],
+  imports: [CommonModule, RouterLink, IonSpinner, CampaignCardComponent, PageHeaderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -53,9 +53,7 @@ export class HomeComponent implements OnInit {
     },
   ];
 
-  constructor() {
-    addIcons({ peopleOutline, medkitOutline });
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.campaigns$ = this.campaignService

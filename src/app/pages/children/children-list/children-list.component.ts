@@ -1,28 +1,24 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import {
-  IonSearchbar,
-  IonSpinner,
-  IonIcon,
-} from '@ionic/angular/standalone';
+import { IonSearchbar, IonSpinner, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { happyOutline, calendarOutline, searchOutline, shieldCheckmarkOutline } from 'ionicons/icons';
+import {
+  happyOutline,
+  calendarOutline,
+  searchOutline,
+  shieldCheckmarkOutline,
+} from 'ionicons/icons';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Child } from '../../../shared/model/child';
 import { ChildService } from '../../../core/services/child.service';
+import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
 
 @Component({
   selector: 'app-child-list',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    IonSearchbar,
-    IonSpinner,
-    IonIcon,
-  ],
+  imports: [CommonModule, RouterLink, IonSearchbar, IonSpinner, IonIcon, PageHeaderComponent],
   templateUrl: './children-list.component.html',
   styleUrls: ['./children-list.component.scss'],
 })
@@ -31,9 +27,7 @@ export class ChildrenListComponent {
   private searchTerm$ = new BehaviorSubject<string>('');
   filteredChildren$: Observable<Child[]>;
 
-  constructor(
-    private childService: ChildService,
-  ) {
+  constructor(private childService: ChildService) {
     addIcons({ happyOutline, calendarOutline, searchOutline, shieldCheckmarkOutline });
 
     this.allChildren$ = this.childService.getChildren();

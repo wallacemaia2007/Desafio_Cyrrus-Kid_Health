@@ -1,12 +1,9 @@
 <section class="page-container">
-  <section class="page-header">
-    <h2 class="section-title">Vacinação Infantil</h2>
-    <p class="section-subtitle">Localize a criança no sistema para verificar o status de vacinação.</p>
-
+  <app-page-header title="Vacinação Infantil" subtitle="Localize a criança no sistema para verificar o status de vacinação.">
     <ion-searchbar placeholder="Digite o nome da criança..." (ionInput)="onSearch($event)"
       class="custom-searchbar" animated="true">
     </ion-searchbar>
-  </section>
+  </app-page-header>
 
   <section class="page-content">
     @if (filteredChildren$ | async; as children) {

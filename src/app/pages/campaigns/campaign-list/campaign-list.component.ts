@@ -1,19 +1,16 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import {
   IonSegment,
   IonSegmentButton,
   IonLabel,
   IonSpinner,
-  IonIcon,
 } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { medkitOutline, peopleOutline } from 'ionicons/icons';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Campaign } from '../../../shared/model/campaign';
 import { CampaignService } from '../../../core/services/campaign.service';
+import { CampaignCardComponent } from '../../../shared/components/campaign-card/campaign-card.component';
+import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
 
 type FilterValue = 'all' | 'active' | 'ended';
 
@@ -22,12 +19,12 @@ type FilterValue = 'all' | 'active' | 'ended';
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink,
     IonSegment,
     IonSegmentButton,
     IonLabel,
     IonSpinner,
-    IonIcon,
+    CampaignCardComponent,
+    PageHeaderComponent,
   ],
   templateUrl: './campaign-list.component.html',
   styleUrl: './campaign-list.component.scss',
@@ -54,10 +51,6 @@ export class CampaignListComponent {
   endedCount$ = this.campaigns$.pipe(
     map((campaigns) => campaigns.filter((c) => !c.active).length),
   );
-
-  constructor() {
-    addIcons({ medkitOutline, peopleOutline });
-  }
 
   onFilterChange(event: CustomEvent): void {
     this.filter$.next(event.detail.value);

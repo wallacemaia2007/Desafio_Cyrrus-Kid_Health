@@ -7,14 +7,15 @@ import {
   IonSpinner,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { arrowBackOutline, medkitOutline } from 'ionicons/icons';
+import { arrowBackOutline } from 'ionicons/icons';
 import { Campaign } from '../../../shared/model/campaign';
 import { CampaignService } from '../../../core/services/campaign.service';
+import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
 
 @Component({
   selector: 'app-campaign-details',
   standalone: true,
-  imports: [CommonModule, RouterLink, IonIcon, IonSpinner],
+  imports: [CommonModule, RouterLink, IonIcon, IonSpinner, PageHeaderComponent],
   templateUrl: './campaign-details.component.html',
   styleUrl: './campaign-details.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,6 +33,6 @@ export class CampaignDetailsComponent {
   );
 
   constructor() {
-    addIcons({ arrowBackOutline, medkitOutline });
+    addIcons({ arrowBackOutline });
   }
 }

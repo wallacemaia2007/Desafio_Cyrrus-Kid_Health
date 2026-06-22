@@ -1,0 +1,21 @@
+<article class="campaign-card" [routerLink]="['/campaigns', campaign().id]">
+  <div class="campaign-card-top">
+    <span class="campaign-status" [class.status-active]="campaign().active" [class.status-ended]="!campaign().active">
+      {{ campaign().active ? 'Em andamento' : 'Encerrada' }}
+    </span>
+    <ion-icon name="medkit-outline" aria-hidden="true"></ion-icon>
+  </div>
+
+  <h3 class="campaign-title">{{ campaign().title }}</h3>
+  <p class="campaign-description">{{ campaign().description }}</p>
+
+  <div class="campaign-footer">
+    <span class="campaign-audience">
+      <ion-icon name="people-outline" aria-hidden="true"></ion-icon>
+      {{ campaign().targetAudience }}
+    </span>
+    <span class="campaign-date">
+      até {{ campaign().endDate | date:'dd/MM/yyyy' }}
+    </span>
+  </div>
+</article>

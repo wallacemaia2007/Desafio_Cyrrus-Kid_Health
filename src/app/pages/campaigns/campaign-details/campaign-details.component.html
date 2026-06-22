@@ -1,12 +1,10 @@
 <section class="page-container">
-  <section class="page-header">
+  <app-page-header title="Detalhes da Campanha" subtitle="Informações completas sobre a campanha de vacinação.">
     <a class="back-link" routerLink="/campaigns">
       <ion-icon name="arrow-back-outline" aria-hidden="true"></ion-icon>
       Voltar
     </a>
-    <h2 class="section-title">Detalhes da Campanha</h2>
-    <p class="section-subtitle">Informações completas sobre a campanha de vacinação.</p>
-  </section>
+  </app-page-header>
 
   <section class="page-content">
     @if (campaign$ | async; as campaign) {
