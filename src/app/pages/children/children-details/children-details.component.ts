@@ -5,7 +5,6 @@ import { Observable, of, switchMap, catchError } from 'rxjs';
 import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
-  arrowBackOutline,
   happyOutline,
   calendarOutline,
   checkmarkCircleOutline,
@@ -27,11 +26,19 @@ import {
   VaccinationSummary,
   VaccineItemStatus,
 } from '../../../shared/utils/vaccination-status';
+import { BackButtonComponent } from '../../../shared/components/back-button/back-button.component';
 
 @Component({
   selector: 'app-children-details',
   standalone: true,
-  imports: [CommonModule, RouterLink, IonIcon, StatusBadgeComponent, LoadingStateComponent],
+  imports: [
+    CommonModule,
+    RouterLink,
+    IonIcon,
+    StatusBadgeComponent,
+    LoadingStateComponent,
+    BackButtonComponent,
+  ],
   templateUrl: './children-details.component.html',
   styleUrl: './children-details.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -92,7 +99,6 @@ export class ChildrenDetailsComponent {
 
   constructor() {
     addIcons({
-      arrowBackOutline,
       happyOutline,
       calendarOutline,
       checkmarkCircleOutline,

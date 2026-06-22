@@ -1,18 +1,21 @@
 <div class="page-container">
   @if (vm$ | async; as vm) {
-  <app-page-header title="Pendências de Vacinação"
-    [subtitle]="'Acompanhamento individual de ' + vm.child.name + '.'">
-    <a class="back-link" [routerLink]="['/children/details', vm.child.id]">
-      <ion-icon name="arrow-back-outline" aria-hidden="true"></ion-icon>
-      Voltar
-    </a>
-  </app-page-header>
+  <div class="page-top-action">
+    <app-back-button [route]="['/children/details', vm.child.id]" />
+  </div>
+
+  <app-page-header
+    title="Pendências de Vacinação"
+    [subtitle]="'Acompanhamento individual de ' + vm.child.name + '.'"
+  />
 
   <section class="page-content">
     @if (vm.overdue.length === 0 && vm.pending.length === 0) {
-    <app-empty-state title="Nenhuma pendência encontrada."
+    <app-empty-state
+      title="Nenhuma pendência encontrada."
       [subtitle]="vm.child.name + ' está com as vacinas cadastradas em dia.'"
-      icon="calendar-outline" />
+      icon="calendar-outline"
+    />
     }
 
     @if (vm.overdue.length > 0) {

@@ -26,7 +26,14 @@ interface HeroSlide {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, CampaignCardComponent, PageHeaderComponent, LoadingStateComponent, GridComponent],
+  imports: [
+    CommonModule,
+    RouterLink,
+    CampaignCardComponent,
+    PageHeaderComponent,
+    LoadingStateComponent,
+    GridComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -60,7 +67,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.campaigns$ = this.campaignService
       .getCampaigns()
-      .pipe(map((campaigns) => campaigns.filter((c) => isCampaignCurrentlyActive(c))));
+      .pipe(map((campaigns) => campaigns.filter((c) => isCampaignCurrentlyActive(c)).slice(0, 4)));
+
     this.startAutoplay();
   }
 

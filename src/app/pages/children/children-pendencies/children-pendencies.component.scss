@@ -2,24 +2,9 @@
   --ion-background-color: #f5f7fa;
 }
 
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  color: #8a8f9a;
-  text-decoration: none;
-  margin-bottom: 0.75rem;
-  transition: color 0.2s ease;
-
-  ion-icon {
-    font-size: 1.125rem;
-  }
-
-  &:hover {
-    color: #473c33;
-  }
+.page-top-action {
+  display: flex;
+  margin-bottom: 1rem;
 }
 
 .page-content {

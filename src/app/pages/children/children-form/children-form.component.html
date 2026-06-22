@@ -1,11 +1,12 @@
 <section class="page-container">
-  <app-page-header [title]="isEditMode() ? 'Editar Criança' : 'Nova Criança'"
-    subtitle="Preencha os dados da criança e gerencie as vacinas.">
-    <a class="back-link" routerLink="/children">
-      <ion-icon name="arrow-back-outline" aria-hidden="true"></ion-icon>
-      Voltar
-    </a>
-  </app-page-header>
+  <div class="page-top-action">
+    <app-back-button route="/children" />
+  </div>
+
+  <app-page-header
+    [title]="isEditMode() ? 'Editar Criança' : 'Nova Criança'"
+    subtitle="Preencha os dados da criança e gerencie as vacinas."
+  />
 
   <section class="page-content">
     @if (message(); as msg) {
@@ -23,23 +24,34 @@
       <div class="details-body">
         <div class="detail-section">
           <span class="detail-label">Nome completo *</span>
-          <input class="form-input" type="text" placeholder="Nome da criança"
+          <input
+            class="form-input"
+            type="text"
+            placeholder="Nome da criança"
             [value]="form().name"
-            (input)="updateForm('name', $any($event.target).value)" />
+            (input)="updateForm('name', $any($event.target).value)"
+          />
         </div>
 
         <div class="detail-row">
           <div class="detail-section">
             <span class="detail-label">Data de Nascimento *</span>
-            <input class="form-input" type="date"
+            <input
+              class="form-input"
+              type="date"
               [value]="form().birthDate"
-              (input)="updateForm('birthDate', $any($event.target).value)" />
+              (input)="updateForm('birthDate', $any($event.target).value)"
+            />
           </div>
           <div class="detail-section">
             <span class="detail-label">Responsável</span>
-            <input class="form-input" type="text" placeholder="Nome do responsável"
+            <input
+              class="form-input"
+              type="text"
+              placeholder="Nome do responsável"
               [value]="form().responsible"
-              (input)="updateForm('responsible', $any($event.target).value)" />
+              (input)="updateForm('responsible', $any($event.target).value)"
+            />
           </div>
         </div>
 
@@ -76,16 +88,26 @@
       @for (vaccine of form().vaccines; track idx; let idx = $index) {
       <div class="vaccine-item">
         <div class="vaccine-row">
-          <input class="form-input form-input-sm" type="text" placeholder="ID (v1)"
+          <input
+            class="form-input form-input-sm"
+            type="text"
+            placeholder="ID (v1)"
             [value]="vaccine.vaccineId"
-            (input)="updateVaccine(idx, 'vaccineId', $any($event.target).value)" />
-          <input class="form-input form-input-flex" type="text" placeholder="Nome da vacina"
+            (input)="updateVaccine(idx, 'vaccineId', $any($event.target).value)"
+          />
+          <input
+            class="form-input form-input-flex"
+            type="text"
+            placeholder="Nome da vacina"
             [value]="vaccine.vaccineName"
-            (input)="updateVaccine(idx, 'vaccineName', $any($event.target).value)" />
+            (input)="updateVaccine(idx, 'vaccineName', $any($event.target).value)"
+          />
           <label class="form-checkbox">
-            <input type="checkbox"
+            <input
+              type="checkbox"
               [checked]="vaccine.applied"
-              (change)="updateVaccine(idx, 'applied', $any($event.target).checked)" />
+              (change)="updateVaccine(idx, 'applied', $any($event.target).checked)"
+            />
             Aplicada
           </label>
           <button class="btn-remove-vaccine" (click)="removeVaccine(idx)" type="button" title="Remover">
@@ -95,15 +117,21 @@
         <div class="vaccine-row">
           <div class="detail-section">
             <span class="detail-label-sm">Data agendada</span>
-            <input class="form-input" type="date"
+            <input
+              class="form-input"
+              type="date"
               [value]="vaccine.scheduledDate"
-              (input)="updateVaccine(idx, 'scheduledDate', $any($event.target).value)" />
+              (input)="updateVaccine(idx, 'scheduledDate', $any($event.target).value)"
+            />
           </div>
           <div class="detail-section">
             <span class="detail-label-sm">Data aplicação</span>
-            <input class="form-input" type="date"
+            <input
+              class="form-input"
+              type="date"
               [value]="vaccine.applicationDate"
-              (input)="updateVaccine(idx, 'applicationDate', $any($event.target).value)" />
+              (input)="updateVaccine(idx, 'applicationDate', $any($event.target).value)"
+            />
           </div>
         </div>
       </div>

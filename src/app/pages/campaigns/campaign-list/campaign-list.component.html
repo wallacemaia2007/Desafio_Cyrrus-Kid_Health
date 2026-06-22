@@ -1,33 +1,16 @@
 <section class="page-container">
-  <app-page-header title="Campanhas de Vacinação" subtitle="Acompanhe campanhas ativas e mantenha a vacinação em dia." />
+  <app-page-header title="Campanhas de Vacinação"
+    subtitle="Acompanhe campanhas ativas e mantenha a vacinação em dia." />
 
   <section class="page-content">
-    @if (stats$ | async; as stats) {
-    <app-summary-card [stats]="stats" />
-    }
-
-    <ion-segment value="all" (ionChange)="onFilterChange($event)" class="custom-segment">
-      <ion-segment-button value="all">
-        <ion-label>Todas</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="active">
-        <ion-label>Ativas</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="ended">
-        <ion-label>Encerradas</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-
-    @if (filteredCampaigns$ | async; as campaigns) {
-    @if (campaigns.length === 0) {
-    <app-empty-state title="Nenhuma campanha encontrada." subtitle="Novas campanhas serão exibidas aqui." />
-    }
-
-    <app-grid>
-      @for (campaign of campaigns; track campaign.id) {
-      <app-campaign-card [campaign]="campaign" />
-      }
-    </app-grid>
+    @if (campaigns$ | async; as campaigns) {
+    <app-paginated-card-grid [items]="campaigns" [searchFn]="searchCampaigns" [filterOptions]="campaignFilters"
+      [pageSize]="8" searchPlaceholder="Buscar por nome da campanha..." emptyTitle="Nenhuma campanha encontrada."
+      emptySubtitle="Tente buscar pelo nome da campanha." emptyIcon="search-outline">
+      <ng-template let-campaign>
+        <app-campaign-card [campaign]="campaign" />
+      </ng-template>
+    </app-paginated-card-grid>
     } @else {
     <app-loading-state message="Carregando campanhas..." />
     }

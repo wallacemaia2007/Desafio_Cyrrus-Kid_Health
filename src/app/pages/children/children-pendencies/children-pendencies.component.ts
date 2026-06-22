@@ -1,10 +1,10 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, catchError, map, of, switchMap } from 'rxjs';
 import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { arrowBackOutline, calendarOutline, timeOutline, warningOutline } from 'ionicons/icons';
+import { calendarOutline, timeOutline, warningOutline } from 'ionicons/icons';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
 import { LoadingStateComponent } from '../../../shared/components/loading-state/loading-state.component';
 import { EmptyStateComponent } from '../../../shared/components/empty-state/empty-state.component';
@@ -12,6 +12,7 @@ import { StatusBadgeComponent } from '../../../shared/components/status-badge/st
 import { Child, ChildVaccineItem } from '../../../shared/model/child';
 import { ChildService } from '../../../core/services/child.service';
 import { getVaccineItemStatus } from '../../../shared/utils/vaccination-status';
+import { BackButtonComponent } from '../../../shared/components/back-button/back-button.component';
 
 interface ChildPendenciesViewModel {
   child: Child;
@@ -24,12 +25,12 @@ interface ChildPendenciesViewModel {
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink,
     IonIcon,
     PageHeaderComponent,
     LoadingStateComponent,
     EmptyStateComponent,
     StatusBadgeComponent,
+    BackButtonComponent,
   ],
   templateUrl: './children-pendencies.component.html',
   styleUrl: './children-pendencies.component.scss',
@@ -59,6 +60,6 @@ export class ChildrenPendenciesComponent {
   );
 
   constructor() {
-    addIcons({ arrowBackOutline, calendarOutline, timeOutline, warningOutline });
+    addIcons({ calendarOutline, timeOutline, warningOutline });
   }
 }

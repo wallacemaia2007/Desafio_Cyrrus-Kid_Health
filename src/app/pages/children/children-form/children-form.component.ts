@@ -4,9 +4,10 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { take } from 'rxjs';
 import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { arrowBackOutline, addOutline, closeOutline, saveOutline } from 'ionicons/icons';
+import { addOutline, closeOutline, saveOutline } from 'ionicons/icons';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
 import { LoadingStateComponent } from '../../../shared/components/loading-state/loading-state.component';
+import { BackButtonComponent } from '../../../shared/components/back-button/back-button.component';
 import { ChildService } from '../../../core/services/child.service';
 import { ChildVaccineItem } from '../../../shared/model/child';
 import { getVaccinationSummary } from '../../../shared/utils/vaccination-status';
@@ -36,7 +37,14 @@ function toDateInput(d: Date): string {
 @Component({
   selector: 'app-children-form',
   standalone: true,
-  imports: [CommonModule, RouterLink, IonIcon, PageHeaderComponent, LoadingStateComponent],
+  imports: [
+    CommonModule,
+    RouterLink,
+    IonIcon,
+    PageHeaderComponent,
+    LoadingStateComponent,
+    BackButtonComponent,
+  ],
   templateUrl: './children-form.component.html',
   styleUrl: './children-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -63,7 +71,7 @@ export class ChildrenFormComponent {
   });
 
   constructor() {
-    addIcons({ arrowBackOutline, addOutline, closeOutline, saveOutline });
+    addIcons({ addOutline, closeOutline, saveOutline });
 
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {

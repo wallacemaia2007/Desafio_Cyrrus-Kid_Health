@@ -1,0 +1,35 @@
+<article class="child-card" [routerLink]="['/children/details', child().id]">
+  @let summary = getSummary();
+  <div class="child-card-top">
+    <app-status-badge [status]="getVaccineStatus()" [label]="getStatusLabel()" />
+    <ion-icon name="happy-outline" aria-hidden="true"></ion-icon>
+  </div>
+
+  <h3 class="child-title">{{ child().name }}</h3>
+  <p class="child-description">
+    <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+    Nascimento: {{ child().birthDate | date:'dd/MM/yyyy' }}
+  </p>
+  @if (child().responsible) {
+  <p class="child-responsible">Responsável: {{ child().responsible }}</p>
+  }
+
+  <div class="progress-section">
+    <div class="progress-header">
+      <span class="progress-label">Status de Imunização</span>
+      <span class="progress-value">{{ summary.applied }} / {{ summary.total }}</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width.%]="getVaccineProgress()"></div>
+    </div>
+  </div>
+
+  <div class="child-footer">
+    <span class="child-info">
+      <ion-icon name="shield-checkmark-outline" aria-hidden="true"></ion-icon>
+      {{ summary.applied }} vacina{{ summary.applied !== 1 ? 's' : '' }} aplicada{{
+        summary.applied !== 1 ? 's' : ''
+      }}
+    </span>
+  </div>
+</article>

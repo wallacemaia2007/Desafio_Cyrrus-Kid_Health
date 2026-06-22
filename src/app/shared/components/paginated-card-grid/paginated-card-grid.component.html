@@ -1,0 +1,99 @@
+<section class="card-grid-shell">
+  @if (searchFn() || filterOptions().length > 0 || actionLabel()) {
+  <div class="card-grid-controls">
+    @if (searchFn()) {
+    <ion-searchbar
+      [placeholder]="searchPlaceholder()"
+      (ionInput)="onSearch($event)"
+      class="custom-searchbar"
+      animated="true"
+    />
+    }
+
+    <div class="card-grid-actions">
+      @if (filterOptions().length > 0) {
+      <div class="status-filter">
+        <button
+          type="button"
+          class="status-filter-button"
+          [class.status-filter-button-active]="hasActiveSpecificFilter()"
+          (click)="toggleFilterMenu()"
+          aria-haspopup="menu"
+          [attr.aria-expanded]="isFilterMenuOpen()"
+        >
+          <ion-icon name="filter-outline" aria-hidden="true"></ion-icon>
+          <span>Status</span>
+        </button>
+
+        @if (isFilterMenuOpen()) {
+        <div class="status-filter-menu" role="menu">
+          @for (filter of filterOptions(); track filter.value) {
+          <button
+            type="button"
+            class="status-filter-option"
+            [class.status-filter-option-active]="activeFilterValue() === filter.value"
+            (click)="selectFilter(filter.value)"
+            role="menuitemradio"
+            [attr.aria-checked]="activeFilterValue() === filter.value"
+          >
+            {{ filter.label }}
+          </button>
+          }
+        </div>
+        }
+      </div>
+      }
+
+      @if (actionLabel() && actionRoute()) {
+      <a class="grid-action-button" [routerLink]="actionRoute()">
+        <ion-icon name="add-outline" aria-hidden="true"></ion-icon>
+        {{ actionLabel() }}
+      </a>
+      }
+    </div>
+  </div>
+  }
+
+  @if (filteredItems().length === 0) {
+  <app-empty-state [title]="emptyTitle()" [subtitle]="emptySubtitle()" [icon]="emptyIcon()" />
+  } @else {
+  <app-grid [minWidth]="minWidth()" [gap]="gap()">
+    @for (item of paginatedItems(); track $index) {
+    <ng-container
+      [ngTemplateOutlet]="itemTemplate()"
+      [ngTemplateOutletContext]="{ $implicit: item }"
+    />
+    }
+  </app-grid>
+
+  <div class="pagination-summary">
+    <span>
+      Exibindo {{ visibleStart() }}-{{ visibleEnd() }} de {{ filteredItems().length }}
+    </span>
+  </div>
+
+  @if (shouldShowPagination()) {
+  <nav class="pagination" aria-label="Paginação">
+    <button
+      type="button"
+      class="pagination-button"
+      [disabled]="safeCurrentPage() === 1"
+      (click)="goToPreviousPage()"
+    >
+      Anterior
+    </button>
+
+    <span class="pagination-page">Página {{ safeCurrentPage() }} de {{ totalPages() }}</span>
+
+    <button
+      type="button"
+      class="pagination-button"
+      [disabled]="safeCurrentPage() === totalPages()"
+      (click)="goToNextPage()"
+    >
+      Próxima
+    </button>
+  </nav>
+  }
+  }
+</section>
