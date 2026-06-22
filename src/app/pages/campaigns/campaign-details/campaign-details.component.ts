@@ -4,12 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, of, switchMap, catchError } from 'rxjs';
 import { IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { medkitOutline } from 'ionicons/icons';
+import { medkitOutline, peopleOutline, calendarOutline } from 'ionicons/icons';
 import { StatusBadgeComponent } from '../../../shared/components/status-badge/status-badge.component';
 import { LoadingStateComponent } from '../../../shared/components/loading-state/loading-state.component';
 import { Campaign } from '../../../shared/model/campaign';
 import { CampaignService } from '../../../core/services/campaign.service';
-import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
 import { isCampaignCurrentlyActive } from '../../../shared/utils/vaccination-status';
 import { BackButtonComponent } from '../../../shared/components/back-button/back-button.component';
 
@@ -19,7 +18,6 @@ import { BackButtonComponent } from '../../../shared/components/back-button/back
   imports: [
     CommonModule,
     IonIcon,
-    PageHeaderComponent,
     StatusBadgeComponent,
     LoadingStateComponent,
     BackButtonComponent,
@@ -41,7 +39,7 @@ export class CampaignDetailsComponent {
   );
 
   constructor() {
-    addIcons({ medkitOutline });
+    addIcons({ medkitOutline, peopleOutline, calendarOutline });
   }
 
   protected isActive(campaign: Campaign): boolean {

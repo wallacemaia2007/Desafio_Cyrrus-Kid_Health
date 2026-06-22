@@ -1,59 +1,76 @@
-<section class="page-container">
-  <div class="page-top-action">
+@if (campaign$ | async; as campaign) {
+
+<section class="details-hero">
+  <div class="details-hero-bg">
+    <img
+      src="https://static.vecteezy.com/ti/vetor-gratis/p1/2672763-muitas-criancas-esperando-na-fila-para-obter-vacina-19-em-fundo-branco-gratis-vetor.jpg"
+      alt="Campanha de vacinação" loading="eager" />
+    <div class="details-hero-overlay"></div>
+  </div>
+
+  <div class="details-hero-action">
     <app-back-button route="/campaigns" />
   </div>
 
-  <app-page-header
-    title="Detalhes da Campanha"
-    subtitle="Informações completas sobre a campanha de vacinação."
-  />
-
-  <section class="page-content">
-    @if (campaign$ | async; as campaign) {
-    <article class="details-card">
-      <div class="campaign-card-top">
-        <app-status-badge
-          [status]="isActive(campaign) ? 'active' : 'ended'"
-          [label]="isActive(campaign) ? 'Em andamento' : 'Encerrada'"
-        />
-        <ion-icon name="medkit-outline" aria-hidden="true"></ion-icon>
-      </div>
-
-      <h3 class="campaign-title">{{ campaign.title }}</h3>
-
-      <div class="details-body">
-        <div class="detail-section">
-          <span class="detail-label">Descrição</span>
-          <p class="detail-text">{{ campaign.description }}</p>
-        </div>
-
-        <div class="detail-section">
-          <span class="detail-label">Público-Alvo</span>
-          <p class="detail-text">{{ campaign.targetAudience }}</p>
-        </div>
-
-        <div class="detail-row">
-          <div class="detail-section">
-            <span class="detail-label">Início</span>
-            <p class="detail-text">{{ campaign.startDate | date:'dd/MM/yyyy' }}</p>
-          </div>
-          <div class="detail-section">
-            <span class="detail-label">Término</span>
-            <p class="detail-text">{{ campaign.endDate | date:'dd/MM/yyyy' }}</p>
-          </div>
-        </div>
-
-        <div class="detail-section">
-          <span class="detail-label">Status</span>
-          <app-status-badge
-            [status]="isActive(campaign) ? 'active' : 'ended'"
-            [label]="isActive(campaign) ? 'Ativa' : 'Encerrada'"
-          />
-        </div>
-      </div>
-    </article>
-    } @else {
-    <app-loading-state />
-    }
-  </section>
+  <div class="details-hero-content">
+    <span class="details-hero-badge">
+      <ion-icon name="medkit-outline" aria-hidden="true"></ion-icon>
+      {{ isActive(campaign) ? 'Em andamento' : 'Encerrada' }}
+    </span>
+    <h1 class="details-hero-title">{{ campaign.title }}</h1>
+  </div>
 </section>
+
+<section class="page-container details-page-content">
+  <article class="details-card">
+    <div class="details-card-top">
+      <app-status-badge [status]="isActive(campaign) ? 'active' : 'ended'"
+        [label]="isActive(campaign) ? 'Ativa' : 'Encerrada'" />
+      <ion-icon name="medkit-outline" aria-hidden="true"></ion-icon>
+    </div>
+
+    <h3 class="campaign-title">{{ campaign.title }}</h3>
+
+    <div class="details-body">
+      <div class="detail-section">
+        <span class="detail-label">Descrição</span>
+        <p class="detail-text">{{ campaign.description }}</p>
+      </div>
+
+      <div class="detail-section">
+        <span class="detail-label">Público-Alvo</span>
+        <p class="detail-text">
+          <ion-icon name="people-outline" aria-hidden="true"></ion-icon>
+          {{ campaign.targetAudience }}
+        </p>
+      </div>
+
+      <div class="detail-row">
+        <div class="detail-section">
+          <span class="detail-label">Início</span>
+          <p class="detail-text">
+            <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+            {{ campaign.startDate | date:'dd/MM/yyyy' }}
+          </p>
+        </div>
+        <div class="detail-section">
+          <span class="detail-label">Término</span>
+          <p class="detail-text">
+            <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
+            {{ campaign.endDate | date:'dd/MM/yyyy' }}
+          </p>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <span class="detail-label">Status</span>
+        <app-status-badge [status]="isActive(campaign) ? 'active' : 'ended'"
+          [label]="isActive(campaign) ? 'Em andamento' : 'Encerrada'" />
+      </div>
+    </div>
+  </article>
+</section>
+
+} @else {
+<app-loading-state />
+}
