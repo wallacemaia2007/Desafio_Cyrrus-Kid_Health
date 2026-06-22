@@ -1,0 +1,159 @@
+:host {
+  --menu-bg: #473c33;
+  --menu-text: #e8e6e3;
+  --menu-text-muted: #a8978a;
+  --menu-primary: #abc270;
+  --menu-secondary: #fec868;
+  --menu-accent: #fda769;
+  --menu-border: rgba(253, 167, 105, 0.15);
+}
+
+.app-main-menu {
+  --width: 280px;
+  --max-width: 320px;
+  --background: var(--menu-bg);
+  // Trava o menu na altura real da viewport, nunca na altura
+  // do conteúdo da página por trás (evita o menu "esticar").
+  height: 100dvh;
+  max-height: 100dvh;
+}
+
+.menu-content {
+  --background: var(--menu-bg);
+  --color: var(--menu-text);
+  height: 100%;
+  max-height: 100dvh;
+}
+
+// Garante que o conteúdo do menu sempre comece do topo,
+// mesmo que a página por trás esteja scrollada.
+.menu-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100%;
+}
+
+.menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 1.25rem 1.25rem;
+  border-bottom: 1px solid var(--menu-border);
+}
+
+.menu-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  ion-icon {
+    font-size: 1.5rem;
+    color: var(--menu-accent);
+  }
+}
+
+.menu-brand-name {
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.01em;
+}
+
+.menu-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--menu-text-muted);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  ion-icon {
+    font-size: 1.375rem;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+  }
+}
+
+.menu-list {
+  --background: transparent;
+  background: transparent;
+  flex: 1;
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  overflow-y: auto;
+}
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  color: var(--menu-text);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  ion-icon {
+    font-size: 1.15rem;
+    color: var(--menu-text-muted);
+    transition: color 0.2s ease;
+  }
+
+  &:hover {
+    background: rgba(171, 194, 112, 0.1);
+    color: #ffffff;
+  }
+
+  &.menu-link-active {
+    background: rgba(171, 194, 112, 0.18);
+    color: var(--menu-primary);
+
+    ion-icon {
+      color: var(--menu-primary);
+    }
+  }
+}
+
+.menu-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 1.25rem;
+  border-top: 1px solid var(--menu-border);
+
+  &::before {
+    content: '';
+    display: block;
+    width: min(60%, 160px);
+    height: 1px;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg,
+        var(--menu-primary) 0%,
+        var(--menu-secondary) 50%,
+        var(--menu-accent) 100%);
+  }
+}
+
+.menu-footer-name {
+  font-size: 0.9375rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.menu-footer-tagline {
+  font-size: 0.75rem;
+  color: var(--menu-text-muted);
+}

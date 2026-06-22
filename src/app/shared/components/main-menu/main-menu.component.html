@@ -1,0 +1,48 @@
+<ion-menu
+  side="end"
+  menuId="main-menu"
+  contentId="main-content"
+  class="app-main-menu"
+  (ionWillOpen)="onWillOpen()"
+  (ionDidOpen)="onDidOpen()"
+  (ionDidClose)="onDidClose()"
+>
+  <ion-content [scrollY]="false" class="menu-content">
+    <div class="menu-shell">
+      <div class="menu-header">
+        <div class="menu-brand">
+          <ion-icon name="medkit-outline" aria-hidden="true"></ion-icon>
+          <span class="menu-brand-name">Kid Health</span>
+        </div>
+        <ion-menu-toggle auto-hide="false">
+          <button type="button" class="menu-close" aria-label="Fechar menu">
+            <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+          </button>
+        </ion-menu-toggle>
+      </div>
+
+      <ion-list class="menu-list" lines="none">
+        @for (item of navItems; track item.route) {
+          <ion-menu-toggle auto-hide="true">
+            <a
+              class="menu-link"
+              [routerLink]="item.route"
+              routerLinkActive="menu-link-active"
+              [routerLinkActiveOptions]="{ exact: item.route === '/' }"
+            >
+              @if (item.icon) {
+              <ion-icon [name]="item.icon" aria-hidden="true"></ion-icon>
+              }
+              <span>{{ item.label }}</span>
+            </a>
+          </ion-menu-toggle>
+        }
+      </ion-list>
+
+      <div class="menu-footer">
+        <span class="menu-footer-name">Kid Health</span>
+        <span class="menu-footer-tagline">Cuidando da vacinação do seu filho</span>
+      </div>
+    </div>
+  </ion-content>
+</ion-menu>

@@ -24,11 +24,25 @@ body {
     overflow-x: hidden !important;
 }
 
+body.menu-content-open {
+    height: 100% !important;
+    overflow: hidden !important;
+    width: 100%;
+}
+
 .ion-page {
     display: block;
     position: relative;
     overflow: visible;
     contain: layout style;
+}
+
+ion-menu {
+    position: fixed !important;
+    top: 0;
+    bottom: 0;
+    height: 100dvh;
+    max-height: 100dvh;
 }
 
 .page-container {

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, HostListener, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import {
@@ -40,6 +40,12 @@ export class HeaderComponent {
 
   constructor() {
     addIcons({ menuOutline, closeOutline });
+  }
+
+  @HostListener('window:main-menu-state-change', ['$event'])
+  protected onMainMenuStateChange(event: Event): void {
+    const { isOpen } = (event as CustomEvent<{ isOpen: boolean }>).detail;
+    this.isMenuOpen.set(isOpen);
   }
 
   public async toggleMenu(): Promise<void> {
