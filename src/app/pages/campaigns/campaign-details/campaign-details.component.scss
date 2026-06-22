@@ -1,0 +1,137 @@
+:host {
+  --ion-background-color: #f5f7fa;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #8a8f9a;
+  text-decoration: none;
+  margin-bottom: 0.75rem;
+  transition: color 0.2s ease;
+
+  ion-icon {
+    font-size: 1.125rem;
+  }
+
+  &:hover {
+    color: #473c33;
+  }
+}
+
+.section-title {
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: #473c33;
+  margin: 0 0 0.25rem;
+}
+
+.section-subtitle {
+  color: #8a8f9a;
+  margin: 0 0 1.25rem;
+}
+
+.details-card {
+  background: #ffffff;
+  border: 1px solid #e8ecf1;
+  border-radius: 22px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.campaign-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  ion-icon {
+    font-size: 1.5rem;
+    color: #fda769;
+  }
+}
+
+.campaign-status {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+
+  &.status-active {
+    background: rgba(171, 194, 112, 0.18);
+    color: #5c7331;
+  }
+
+  &.status-ended {
+    background: rgba(138, 143, 154, 0.15);
+    color: #6b7280;
+  }
+
+  &.status-static {
+    align-self: flex-start;
+  }
+}
+
+.campaign-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #473c33;
+  margin: 0 0 1.5rem;
+  line-height: 1.35;
+}
+
+.details-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.detail-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #8a8f9a;
+}
+
+.detail-text {
+  font-size: 0.9375rem;
+  color: #473c33;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.detail-row {
+  display: flex;
+  gap: 2rem;
+
+  .detail-section {
+    flex: 1;
+  }
+}
+
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1.5rem;
+}
+
+.loading-text {
+  margin-top: 1rem;
+  color: #8a8f9a;
+  font-weight: 500;
+}

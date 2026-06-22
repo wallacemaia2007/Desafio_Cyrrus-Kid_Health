@@ -1,10 +1,78 @@
-<div class="page-container">
+<section class="page-container">
   <section class="page-header">
-    <h2 class="text-2xl font-bold text-dark">Campanhas de Vacinação</h2>
-    <p class="text-text-light">Confira as campanhas ativas e anteriores.</p>
+    <h2 class="section-title">Campanhas de Vacinação</h2>
+    <p class="section-subtitle">Acompanhe campanhas ativas e mantenha a vacinação em dia.</p>
   </section>
 
   <section class="page-content">
-    <p>campaign-list works!</p>
+    @if (activeCount$ | async; as activeCount) {
+    @if (endedCount$ | async; as endedCount) {
+    <div class="summary-card">
+      <div class="summary-stats">
+        <div class="stat">
+          <span class="stat-value">{{ activeCount }}</span>
+          <span class="stat-label">campanha{{ activeCount !== 1 ? 's' : '' }} ativa{{ activeCount !== 1 ? 's' : '' }}</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-value">{{ endedCount }}</span>
+          <span class="stat-label">campanha{{ endedCount !== 1 ? 's' : '' }} encerrada{{ endedCount !== 1 ? 's' : '' }}</span>
+        </div>
+      </div>
+    </div>
+    }
+    }
+
+    <ion-segment value="all" (ionChange)="onFilterChange($event)" class="custom-segment">
+      <ion-segment-button value="all">
+        <ion-label>Todas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="active">
+        <ion-label>Ativas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="ended">
+        <ion-label>Encerradas</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    @if (filteredCampaigns$ | async; as campaigns) {
+    @if (campaigns.length === 0) {
+    <div class="empty-state">
+      <p class="empty-state-title">Nenhuma campanha encontrada.</p>
+      <p class="empty-state-subtitle">Novas campanhas serão exibidas aqui.</p>
+    </div>
+    }
+
+    <div class="campaigns-grid">
+      @for (campaign of campaigns; track campaign.id) {
+      <article class="campaign-card" [routerLink]="['/campaigns', campaign.id]">
+        <div class="campaign-card-top">
+          <span class="campaign-status" [class.status-active]="campaign.active" [class.status-ended]="!campaign.active">
+            {{ campaign.active ? 'Em andamento' : 'Encerrada' }}
+          </span>
+          <ion-icon name="medkit-outline" aria-hidden="true"></ion-icon>
+        </div>
+
+        <h3 class="campaign-title">{{ campaign.title }}</h3>
+        <p class="campaign-description">{{ campaign.description }}</p>
+
+        <div class="campaign-footer">
+          <span class="campaign-audience">
+            <ion-icon name="people-outline" aria-hidden="true"></ion-icon>
+            {{ campaign.targetAudience }}
+          </span>
+          <span class="campaign-date">
+            até {{ campaign.endDate | date:'dd/MM/yyyy' }}
+          </span>
+        </div>
+      </article>
+      }
+    </div>
+    } @else {
+    <div class="loading-state">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <p class="loading-text">Carregando campanhas...</p>
+    </div>
+    }
   </section>
-</div>
+</section>

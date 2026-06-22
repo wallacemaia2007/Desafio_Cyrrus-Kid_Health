@@ -1,9 +1,60 @@
-<div class="page-container">
+<section class="page-container">
   <section class="page-header">
-    <h2 class="text-2xl font-bold text-dark">Detalhes da Campanha</h2>
+    <a class="back-link" routerLink="/campaigns">
+      <ion-icon name="arrow-back-outline" aria-hidden="true"></ion-icon>
+      Voltar
+    </a>
+    <h2 class="section-title">Detalhes da Campanha</h2>
+    <p class="section-subtitle">Informações completas sobre a campanha de vacinação.</p>
   </section>
 
   <section class="page-content">
-    <p>campaign-details works!</p>
+    @if (campaign$ | async; as campaign) {
+    <article class="details-card">
+      <div class="campaign-card-top">
+        <span class="campaign-status" [class.status-active]="campaign.active" [class.status-ended]="!campaign.active">
+          {{ campaign.active ? 'Em andamento' : 'Encerrada' }}
+        </span>
+        <ion-icon name="medkit-outline" aria-hidden="true"></ion-icon>
+      </div>
+
+      <h3 class="campaign-title">{{ campaign.title }}</h3>
+
+      <div class="details-body">
+        <div class="detail-section">
+          <span class="detail-label">Descrição</span>
+          <p class="detail-text">{{ campaign.description }}</p>
+        </div>
+
+        <div class="detail-section">
+          <span class="detail-label">Público-Alvo</span>
+          <p class="detail-text">{{ campaign.targetAudience }}</p>
+        </div>
+
+        <div class="detail-row">
+          <div class="detail-section">
+            <span class="detail-label">Início</span>
+            <p class="detail-text">{{ campaign.startDate | date:'dd/MM/yyyy' }}</p>
+          </div>
+          <div class="detail-section">
+            <span class="detail-label">Término</span>
+            <p class="detail-text">{{ campaign.endDate | date:'dd/MM/yyyy' }}</p>
+          </div>
+        </div>
+
+        <div class="detail-section">
+          <span class="detail-label">Status</span>
+          <span class="campaign-status status-static" [class.status-active]="campaign.active" [class.status-ended]="!campaign.active">
+            {{ campaign.active ? 'Ativa' : 'Encerrada' }}
+          </span>
+        </div>
+      </div>
+    </article>
+    } @else {
+    <div class="loading-state">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <p class="loading-text">Carregando...</p>
+    </div>
+    }
   </section>
-</div>
+</section>

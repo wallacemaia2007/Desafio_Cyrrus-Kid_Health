@@ -2,6 +2,18 @@
   --ion-background-color: #f5f7fa;
 }
 
+.section-title {
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: #473c33;
+  margin: 0 0 0.25rem;
+}
+
+.section-subtitle {
+  color: #8a8f9a;
+  margin: 0 0 1rem;
+}
+
 .custom-searchbar {
   --background: #ffffff;
   --border-radius: 12px;
@@ -9,45 +21,190 @@
   --placeholder-color: #8a8f9a;
   --icon-color: #ABC270;
   padding: 0;
+}
+
+.children-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.campaign-card {
+  background: #ffffff;
+  border: 1px solid #e8ecf1;
+  border-radius: 22px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px -8px rgba(71, 60, 51, 0.15);
+    border-color: transparent;
+  }
+}
+
+.campaign-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  ion-icon {
+    font-size: 1.5rem;
+    color: #fda769;
+  }
+}
+
+.campaign-status {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+
+  &.status-complete {
+    background: rgba(171, 194, 112, 0.18);
+    color: #5c7331;
+  }
+
+  &.status-partial {
+    background: rgba(254, 200, 104, 0.18);
+    color: #8a6d00;
+  }
+
+  &.status-pending {
+    background: rgba(253, 167, 105, 0.18);
+    color: #a05400;
+  }
+}
+
+.campaign-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #473c33;
+  margin: 0 0 0.5rem;
+  line-height: 1.35;
+}
+
+.campaign-description--child {
+  font-size: 0.9rem;
+  color: #8a8f9a;
+  line-height: 1.55;
+  margin: 0 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+
+  ion-icon {
+    color: #abc270;
+    font-size: 1rem;
+  }
+}
+
+.progress-section {
+  margin-bottom: 1.25rem;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.progress-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #8a8f9a;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.progress-value {
+  font-size: 0.8125rem;
+  font-weight: 800;
+  color: #473c33;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #e8ecf1;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #abc270;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.campaign-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  font-size: 0.8125rem;
+  border-top: 1px dashed #e8ecf1;
+  padding-top: 0.9rem;
+}
+
+.campaign-audience {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #473c33;
+  font-weight: 600;
+
+  ion-icon {
+    color: #abc270;
+    font-size: 1rem;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #e8ecf1;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  color: #fda769;
   margin-bottom: 1rem;
 }
 
-.custom-progress-bar {
-  ::ng-deep .mat-progress-bar-fill::after {
-    background-color: #ABC270;
-  }
-
-  ::ng-deep .mat-progress-bar-buffer {
-    background-color: #e8ecf1;
-  }
+.empty-state-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #473c33;
+  margin: 0 0 0.375rem;
 }
 
-ion-badge {
-  &[color="success"] {
-    --background: #ABC270;
-    color: #ffffff;
-  }
-
-  &[color="warning"] {
-    --background: #FEC868;
-    color: #473C33;
-  }
-
-  &[color="danger"] {
-    --background: #FDA769;
-    color: #ffffff;
-  }
+.empty-state-subtitle {
+  font-size: 0.875rem;
+  color: #8a8f9a;
+  margin: 0;
 }
 
-ion-card {
-  &:active {
-    background-color: #f9fafb;
-    transform: scale(0.99);
-  }
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1.5rem;
 }
 
-mat-icon {
-  width: 24px;
-  height: 24px;
-  font-size: 24px;
+.loading-text {
+  margin-top: 1rem;
+  color: #8a8f9a;
+  font-weight: 500;
 }

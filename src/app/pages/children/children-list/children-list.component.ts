@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { RouterLink } from '@angular/router';
 import {
   IonSearchbar,
-  IonBadge,
-  IonCard,
-  IonCardContent,
   IonSpinner,
+  IonIcon,
 } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { happyOutline, calendarOutline, searchOutline, shieldCheckmarkOutline } from 'ionicons/icons';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Child } from '../../../shared/model/child';
@@ -20,26 +18,24 @@ import { ChildService } from '../../../core/services/child.service';
   standalone: true,
   imports: [
     CommonModule,
+    RouterLink,
     IonSearchbar,
-    IonBadge,
-    IonCard,
-    IonCardContent,
     IonSpinner,
-    MatIconModule,
-    MatProgressBarModule,
+    IonIcon,
   ],
   templateUrl: './children-list.component.html',
   styleUrls: ['./children-list.component.scss'],
 })
-export class ChildrenListComponent implements OnInit {
+export class ChildrenListComponent {
   private allChildren$: Observable<Child[]>;
   private searchTerm$ = new BehaviorSubject<string>('');
   filteredChildren$: Observable<Child[]>;
 
   constructor(
     private childService: ChildService,
-    private router: Router,
   ) {
+    addIcons({ happyOutline, calendarOutline, searchOutline, shieldCheckmarkOutline });
+
     this.allChildren$ = this.childService.getChildren();
     this.filteredChildren$ = combineLatest([
       this.allChildren$,
@@ -54,15 +50,9 @@ export class ChildrenListComponent implements OnInit {
     );
   }
 
-  ngOnInit(): void {}
-
   onSearch(event: any): void {
     const term = event.target.value || '';
     this.searchTerm$.next(term);
-  }
-
-  goToDetails(childId: string): void {
-    this.router.navigate(['/children/details', childId]);
   }
 
   getVaccineStatus(child: Child): string {
