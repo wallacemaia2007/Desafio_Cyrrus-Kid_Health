@@ -100,10 +100,11 @@
   box-shadow: 0 16px 36px -20px rgba(71, 60, 51, 0.35);
   display: grid;
   gap: 0.25rem;
-  min-width: 160px;
+  left: 0;
+  min-width: 176px;
   padding: 0.35rem;
   position: absolute;
-  right: 0;
+  right: auto;
   top: calc(100% + 0.5rem);
   z-index: 10;
 }
@@ -191,5 +192,10 @@
 
   .status-filter {
     flex: 0 0 auto;
+  }
+
+  .status-filter-menu {
+    left: auto;
+    right: 0;
   }
 }
