@@ -1,48 +1,75 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import {
+  Firestore,
+  collection,
+  doc,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  onSnapshot,
+  Unsubscribe,
+} from '@angular/fire/firestore';
+import { Observable, map, catchError, of } from 'rxjs';
 import { Child } from '../../shared/model/child';
+import { convertDates, convertToTimestamps } from '../../shared/utils/firestore-converters';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChildService {
-  private childrenSubject = new BehaviorSubject<Child[]>([
-    {
-      id: '1',
-      name: 'Enzo Gabriel',
-      birthDate: new Date(2020, 5, 15),
-      totalVaccines: 12,
-      appliedVaccines: 10,
-      pendingVaccines: 2,
-    },
-    {
-      id: '2',
-      name: 'Valentina Silva',
-      birthDate: new Date(2021, 2, 10),
-      totalVaccines: 10,
-      appliedVaccines: 10,
-      pendingVaccines: 0,
-    },
-    {
-      id: '3',
-      name: 'Miguel Oliveira',
-      birthDate: new Date(2019, 10, 22),
-      totalVaccines: 15,
-      appliedVaccines: 12,
-      pendingVaccines: 3,
-    },
-    {
-      id: '4',
-      name: 'Alice Santos',
-      birthDate: new Date(2022, 0, 5),
-      totalVaccines: 8,
-      appliedVaccines: 5,
-      pendingVaccines: 3,
-    },
-  ]);
+  private firestore = inject(Firestore);
+  private childrenCollection = collection(this.firestore, 'children');
 
   getChildren(): Observable<Child[]> {
-    return this.childrenSubject.asObservable();
+    return new Observable<Child[]>((subscriber) => {
+      const unsub: Unsubscribe = onSnapshot(
+        this.childrenCollection,
+        (snapshot) => {
+          const children = snapshot.docs.map((d) =>
+            convertDates<Child>({ id: d.id, ...d.data() }, ['birthDate']),
+          );
+          subscriber.next(children);
+        },
+        (err) => subscriber.error(err),
+      );
+      return { unsubscribe: () => unsub() };
+    }).pipe(
+      catchError((err) => {
+        console.error('Erro ao carregar crianças do Firestore:', err);
+        return of([]);
+      }),
+    );
+  }
+
+  getChildById(id: string): Observable<Child> {
+    const ref = doc(this.firestore, 'children', id);
+    return new Observable<Child>((subscriber) => {
+      const unsub: Unsubscribe = onSnapshot(
+        ref,
+        (snap) => {
+          if (snap.exists()) {
+            const data = convertDates<Child>({ id: snap.id, ...snap.data() }, ['birthDate']);
+            subscriber.next(data);
+          }
+        },
+        (err) => subscriber.error(err),
+      );
+      return { unsubscribe: () => unsub() };
+    });
+  }
+
+  addChild(child: Omit<Child, 'id'>) {
+    return addDoc(this.childrenCollection, convertToTimestamps<Child>(child, ['birthDate']));
+  }
+
+  updateChild(id: string, child: Partial<Child>) {
+    const ref = doc(this.firestore, 'children', id);
+    return updateDoc(ref, convertToTimestamps<Child>(child, ['birthDate']));
+  }
+
+  deleteChild(id: string) {
+    const ref = doc(this.firestore, 'children', id);
+    return deleteDoc(ref);
   }
 
   searchChildren(term: string): Observable<Child[]> {
