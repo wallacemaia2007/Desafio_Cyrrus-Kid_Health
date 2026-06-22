@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "y",
+    "public": "dist/kid_health/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
