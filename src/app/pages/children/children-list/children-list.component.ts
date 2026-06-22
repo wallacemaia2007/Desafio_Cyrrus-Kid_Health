@@ -46,10 +46,15 @@ export class ChildrenListComponent {
       this.searchTerm$.pipe(startWith('')),
     ]).pipe(
       map(([children, term]) => {
-        const normalizedTerm = term.toLowerCase().trim();
+        const normalizedTerm = this.normalizeSearchText(term);
         if (!normalizedTerm) return children;
 
-        return children.filter((child) => child.name.toLowerCase().includes(normalizedTerm));
+        return children.filter((child) => {
+          const childName = this.normalizeSearchText(child.name);
+          const responsibleName = this.normalizeSearchText(child.responsible || '');
+
+          return childName.includes(normalizedTerm) || responsibleName.includes(normalizedTerm);
+        });
       }),
     );
   }
@@ -57,6 +62,14 @@ export class ChildrenListComponent {
   onSearch(event: any): void {
     const term = event.target.value || '';
     this.searchTerm$.next(term);
+  }
+
+  private normalizeSearchText(value: string): string {
+    return value
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
   }
 
   getVaccineStatus(child: Child): StatusBadgeVariant {

@@ -58,14 +58,11 @@
             <div class="vaccine-item-main">
               <div class="vaccine-item-info">
                 <ion-icon [name]="vaccine.applied ? 'checkmark-circle-outline' : 'time-outline'"
-                  [class.applied]="vaccine.applied"
-                  [class.pending]="vaccineItemStatus(vaccine) === 'pending'"
-                  [class.overdue]="vaccineItemStatus(vaccine) === 'overdue'"
-                  aria-hidden="true"></ion-icon>
+                  [class.applied]="vaccine.applied" [class.pending]="vaccineItemStatus(vaccine) === 'pending'"
+                  [class.overdue]="vaccineItemStatus(vaccine) === 'overdue'" aria-hidden="true"></ion-icon>
                 <span class="vaccine-name">{{ vaccine.vaccineName }}</span>
               </div>
-              <app-status-badge [status]="vaccineItemBadgeStatus(vaccine)"
-                [label]="vaccineItemStatusLabel(vaccine)" />
+              <app-status-badge [status]="vaccineItemBadgeStatus(vaccine)" [label]="vaccineItemStatusLabel(vaccine)" />
             </div>
 
             <div class="vaccine-dates">

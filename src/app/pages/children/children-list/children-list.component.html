@@ -2,7 +2,7 @@
   <app-page-header title="Vacinação Infantil"
     subtitle="Localize a criança no sistema para verificar o status de vacinação.">
     <div class="list-header-actions">
-      <ion-searchbar placeholder="Digite o nome da criança..." (ionInput)="onSearch($event)" class="custom-searchbar"
+      <ion-searchbar placeholder="Buscar por criança ou responsável..." (ionInput)="onSearch($event)" class="custom-searchbar"
         animated="true">
       </ion-searchbar>
       <a class="btn-new-child" routerLink="/children/new">
@@ -15,7 +15,7 @@
   <section class="page-content">
     @if (filteredChildren$ | async; as children) {
     @if (children.length === 0) {
-    <app-empty-state title="Nenhuma criança encontrada." subtitle="Tente buscar por outro nome."
+    <app-empty-state title="Nenhuma criança encontrada." subtitle="Tente buscar pelo nome da criança ou do responsável."
       icon="search-outline" />
     }
 
@@ -34,6 +34,11 @@
           <ion-icon name="calendar-outline" aria-hidden="true"></ion-icon>
           Nascimento: {{ child.birthDate | date:'dd/MM/yyyy' }}
         </p>
+        @if (child.responsible) {
+        <p class="child-responsible">
+          Responsável: {{ child.responsible }}
+        </p>
+        }
 
         <div class="progress-section">
           <div class="progress-header">

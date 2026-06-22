@@ -91,7 +91,7 @@
   font-size: 0.9rem;
   color: #8a8f9a;
   line-height: 1.55;
-  margin: 0 0 1rem;
+  margin: 0 0 0.5rem;
   display: flex;
   align-items: center;
   gap: 0.35rem;
@@ -100,6 +100,14 @@
     color: #abc270;
     font-size: 1rem;
   }
+}
+
+.child-responsible {
+  font-size: 0.9rem;
+  color: #473c33;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+  overflow-wrap: anywhere;
 }
 
 .progress-section {
