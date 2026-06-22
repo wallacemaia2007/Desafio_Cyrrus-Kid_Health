@@ -10,7 +10,8 @@
     @if (campaign$ | async; as campaign) {
     <article class="details-card">
       <div class="campaign-card-top">
-        <app-status-badge [status]="campaign.active ? 'active' : 'ended'" [label]="campaign.active ? 'Em andamento' : 'Encerrada'" />
+        <app-status-badge [status]="isActive(campaign) ? 'active' : 'ended'"
+          [label]="isActive(campaign) ? 'Em andamento' : 'Encerrada'" />
         <ion-icon name="medkit-outline" aria-hidden="true"></ion-icon>
       </div>
 
@@ -40,7 +41,8 @@
 
         <div class="detail-section">
           <span class="detail-label">Status</span>
-          <app-status-badge [status]="campaign.active ? 'active' : 'ended'" [label]="campaign.active ? 'Ativa' : 'Encerrada'" />
+          <app-status-badge [status]="isActive(campaign) ? 'active' : 'ended'"
+            [label]="isActive(campaign) ? 'Ativa' : 'Encerrada'" />
         </div>
       </div>
     </article>

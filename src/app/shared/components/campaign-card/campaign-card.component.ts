@@ -6,6 +6,7 @@ import { addIcons } from 'ionicons';
 import { medkitOutline, peopleOutline } from 'ionicons/icons';
 import { StatusBadgeComponent } from '../status-badge/status-badge.component';
 import { Campaign } from '../../model/campaign';
+import { isCampaignCurrentlyActive } from '../../utils/vaccination-status';
 
 @Component({
   selector: 'app-campaign-card',
@@ -20,5 +21,9 @@ export class CampaignCardComponent {
 
   constructor() {
     addIcons({ medkitOutline, peopleOutline });
+  }
+
+  protected isActive(): boolean {
+    return isCampaignCurrentlyActive(this.campaign());
   }
 }

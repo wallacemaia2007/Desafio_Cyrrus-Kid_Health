@@ -9,6 +9,7 @@ import { PageHeaderComponent } from '../../../shared/components/page-header/page
 import { LoadingStateComponent } from '../../../shared/components/loading-state/loading-state.component';
 import { ChildService } from '../../../core/services/child.service';
 import { ChildVaccineItem } from '../../../shared/model/child';
+import { getVaccinationSummary } from '../../../shared/utils/vaccination-status';
 
 interface FormVaccine {
   vaccineId: string;
@@ -138,6 +139,18 @@ export class ChildrenFormComponent {
     this.form.update((f) => ({ ...f, [field]: value }));
   }
 
+  protected totalFormVaccines(): number {
+    return this.form().vaccines.length;
+  }
+
+  protected appliedFormVaccines(): number {
+    return this.form().vaccines.filter((vaccine) => vaccine.applied).length;
+  }
+
+  protected pendingFormVaccines(): number {
+    return this.form().vaccines.filter((vaccine) => !vaccine.applied).length;
+  }
+
   protected async save(): Promise<void> {
     const f = this.form();
     if (!f.name || !f.birthDate) {
@@ -159,14 +172,15 @@ export class ChildrenFormComponent {
         scheduledDate: new Date(v.scheduledDate),
         ...(v.applicationDate ? { applicationDate: new Date(v.applicationDate) } : {}),
       }));
+    const summary = getVaccinationSummary(vaccines);
 
     const childData = {
       name: f.name,
       birthDate: new Date(f.birthDate),
       responsible: f.responsible || undefined,
-      totalVaccines: +f.totalVaccines || 0,
-      appliedVaccines: +f.appliedVaccines || 0,
-      pendingVaccines: +f.pendingVaccines || 0,
+      totalVaccines: summary.total,
+      appliedVaccines: summary.applied,
+      pendingVaccines: summary.pending + summary.overdue,
       vaccines,
     };
 

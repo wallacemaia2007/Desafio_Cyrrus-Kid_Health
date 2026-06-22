@@ -89,7 +89,7 @@
 
 // ===== Card flutuante =====
 .details-page-content {
-    margin-top: -2.5rem;
+    margin-top: -6.5rem;
     position: relative;
     z-index: 3;
     padding-bottom: 3rem;
@@ -221,12 +221,24 @@
 
 .vaccine-item {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: stretch;
     gap: 0.75rem;
     padding: 0.7rem 0.9rem;
     background: #f5f7fa;
     border-radius: 12px;
+
+    &.vaccine-item-overdue {
+        background: rgba(214, 69, 80, 0.08);
+        border: 1px solid rgba(214, 69, 80, 0.2);
+    }
+}
+
+.vaccine-item-main {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
 }
 
 .vaccine-item-info {
@@ -246,6 +258,10 @@
         &.pending {
             color: #fda769;
         }
+
+        &.overdue {
+            color: #b4232f;
+        }
     }
 }
 
@@ -258,12 +274,13 @@
     text-overflow: ellipsis;
 }
 
-.vaccine-date {
+.vaccine-dates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1rem;
     font-size: 0.8125rem;
     color: #8a8f9a;
     font-weight: 500;
-    white-space: nowrap;
-    flex-shrink: 0;
 }
 
 // ===== Ações =====
@@ -316,6 +333,10 @@
 }
 
 @media (max-width: 575px) {
+    .details-page-content {
+        margin-top: -4rem;
+    }
+
     .details-actions {
         flex-direction: column;
     }

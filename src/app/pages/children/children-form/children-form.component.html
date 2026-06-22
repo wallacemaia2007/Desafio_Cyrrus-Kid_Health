@@ -46,21 +46,15 @@
         <div class="detail-row detail-row-3">
           <div class="detail-section">
             <span class="detail-label">Total Vacinas</span>
-            <input class="form-input" type="number" min="0"
-              [value]="form().totalVaccines"
-              (input)="updateForm('totalVaccines', $any($event.target).valueAsNumber)" />
+            <input class="form-input" type="number" min="0" [value]="totalFormVaccines()" readonly />
           </div>
           <div class="detail-section">
             <span class="detail-label">Aplicadas</span>
-            <input class="form-input" type="number" min="0"
-              [value]="form().appliedVaccines"
-              (input)="updateForm('appliedVaccines', $any($event.target).valueAsNumber)" />
+            <input class="form-input" type="number" min="0" [value]="appliedFormVaccines()" readonly />
           </div>
           <div class="detail-section">
             <span class="detail-label">Pendentes</span>
-            <input class="form-input" type="number" min="0"
-              [value]="form().pendingVaccines"
-              (input)="updateForm('pendingVaccines', $any($event.target).valueAsNumber)" />
+            <input class="form-input" type="number" min="0" [value]="pendingFormVaccines()" readonly />
           </div>
         </div>
       </div>

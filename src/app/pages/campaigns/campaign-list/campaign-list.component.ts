@@ -14,6 +14,7 @@ import { GridComponent } from '../../../shared/components/grid/grid.component';
 import { LoadingStateComponent } from '../../../shared/components/loading-state/loading-state.component';
 import { EmptyStateComponent } from '../../../shared/components/empty-state/empty-state.component';
 import { SummaryCardComponent, StatItem } from '../../../shared/components/summary-card/summary-card.component';
+import { isCampaignCurrentlyActive } from '../../../shared/utils/vaccination-status';
 
 type FilterValue = 'all' | 'active' | 'ended';
 
@@ -45,17 +46,17 @@ export class CampaignListComponent {
   filteredCampaigns$ = combineLatest([this.campaigns$, this.filter$]).pipe(
     map(([campaigns, filter]) => {
       if (filter === 'all') return campaigns;
-      if (filter === 'active') return campaigns.filter((c) => c.active);
-      return campaigns.filter((c) => !c.active);
+      if (filter === 'active') return campaigns.filter((c) => isCampaignCurrentlyActive(c));
+      return campaigns.filter((c) => !isCampaignCurrentlyActive(c));
     }),
   );
 
   activeCount$ = this.campaigns$.pipe(
-    map((campaigns) => campaigns.filter((c) => c.active).length),
+    map((campaigns) => campaigns.filter((c) => isCampaignCurrentlyActive(c)).length),
   );
 
   endedCount$ = this.campaigns$.pipe(
-    map((campaigns) => campaigns.filter((c) => !c.active).length),
+    map((campaigns) => campaigns.filter((c) => !isCampaignCurrentlyActive(c)).length),
   );
 
   stats$ = combineLatest([this.activeCount$, this.endedCount$]).pipe(

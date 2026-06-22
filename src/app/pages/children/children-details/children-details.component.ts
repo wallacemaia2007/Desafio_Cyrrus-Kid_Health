@@ -18,8 +18,15 @@ import {
   StatusBadgeVariant,
 } from '../../../shared/components/status-badge/status-badge.component';
 import { LoadingStateComponent } from '../../../shared/components/loading-state/loading-state.component';
-import { Child } from '../../../shared/model/child';
+import { Child, ChildVaccineItem } from '../../../shared/model/child';
 import { ChildService } from '../../../core/services/child.service';
+import {
+  getChildVaccinationSummary,
+  getVaccinationProgress,
+  getVaccineItemStatus,
+  VaccinationSummary,
+  VaccineItemStatus,
+} from '../../../shared/utils/vaccination-status';
 
 @Component({
   selector: 'app-children-details',
@@ -42,14 +49,45 @@ export class ChildrenDetailsComponent {
   );
 
   protected vaccineStatus(child: Child): StatusBadgeVariant {
-    if (child.pendingVaccines === 0) return 'complete';
-    if (child.appliedVaccines > 0) return 'partial';
+    const summary = this.vaccinationSummary(child);
+
+    if (summary.overdue > 0) return 'overdue';
+    if (summary.pending === 0) return 'complete';
+    if (summary.applied > 0) return 'partial';
     return 'pending';
   }
 
   protected vaccineProgress(child: Child): number {
-    if (!child.totalVaccines) return 0;
-    return (child.appliedVaccines / child.totalVaccines) * 100;
+    return getVaccinationProgress(this.vaccinationSummary(child));
+  }
+
+  protected vaccinationSummary(child: Child): VaccinationSummary {
+    return getChildVaccinationSummary(child);
+  }
+
+  protected statusLabel(child: Child): string {
+    const summary = this.vaccinationSummary(child);
+
+    if (summary.overdue > 0) return `${summary.overdue} Atrasada${summary.overdue !== 1 ? 's' : ''}`;
+    if (summary.pending > 0) return `${summary.pending} Pendente${summary.pending !== 1 ? 's' : ''}`;
+    return 'Completo';
+  }
+
+  protected vaccineItemStatus(vaccine: ChildVaccineItem): VaccineItemStatus {
+    return getVaccineItemStatus(vaccine);
+  }
+
+  protected vaccineItemStatusLabel(vaccine: ChildVaccineItem): string {
+    const status = this.vaccineItemStatus(vaccine);
+
+    if (status === 'applied') return 'Aplicada';
+    if (status === 'overdue') return 'Atrasada';
+    return 'Pendente';
+  }
+
+  protected vaccineItemBadgeStatus(vaccine: ChildVaccineItem): StatusBadgeVariant {
+    const status = this.vaccineItemStatus(vaccine);
+    return status === 'applied' ? 'complete' : status;
   }
 
   constructor() {

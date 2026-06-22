@@ -19,6 +19,11 @@ import { EmptyStateComponent } from '../../../shared/components/empty-state/empt
 import { Child } from '../../../shared/model/child';
 import { ChildService } from '../../../core/services/child.service';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
+import {
+  getChildVaccinationSummary,
+  getVaccinationProgress,
+  VaccinationSummary,
+} from '../../../shared/utils/vaccination-status';
 
 @Component({
   selector: 'app-child-list',
@@ -55,13 +60,27 @@ export class ChildrenListComponent {
   }
 
   getVaccineStatus(child: Child): StatusBadgeVariant {
-    if (child.pendingVaccines === 0) return 'complete';
-    if (child.appliedVaccines > 0) return 'partial';
+    const summary = this.getSummary(child);
+
+    if (summary.overdue > 0) return 'overdue';
+    if (summary.pending === 0) return 'complete';
+    if (summary.applied > 0) return 'partial';
     return 'pending';
   }
 
   getVaccineProgress(child: Child): number {
-    if (!child.totalVaccines) return 0;
-    return (child.appliedVaccines / child.totalVaccines) * 100;
+    return getVaccinationProgress(this.getSummary(child));
+  }
+
+  getSummary(child: Child): VaccinationSummary {
+    return getChildVaccinationSummary(child);
+  }
+
+  getStatusLabel(child: Child): string {
+    const summary = this.getSummary(child);
+
+    if (summary.overdue > 0) return `${summary.overdue} Atrasada${summary.overdue !== 1 ? 's' : ''}`;
+    if (summary.pending > 0) return `${summary.pending} Pendente${summary.pending !== 1 ? 's' : ''}`;
+    return 'Completo';
   }
 }

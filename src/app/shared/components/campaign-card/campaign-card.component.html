@@ -1,6 +1,7 @@
 <article class="campaign-card" [routerLink]="['/campaigns', campaign().id]">
   <div class="campaign-card-top">
-    <app-status-badge [status]="campaign().active ? 'active' : 'ended'" [label]="campaign().active ? 'Em andamento' : 'Encerrada'" />
+    <app-status-badge [status]="isActive() ? 'active' : 'ended'"
+      [label]="isActive() ? 'Em andamento' : 'Encerrada'" />
     <ion-icon name="medkit-outline" aria-hidden="true"></ion-icon>
   </div>
 

@@ -2,7 +2,7 @@
 <section class="details-hero">
   <div class="details-hero-bg">
     <img
-      src="https://img.magnific.com/fotos-gratis/doutor-dando-um-high-five-a-uma-menina-sorridente-sentada-no-colo-de-sua-mae-durante-uma-consulta-medica_329181-7634.jpg?semt=ais_hybrid&w=740&q=80"
+      src="https://img.magnific.com/vetores-gratis/fundo-plano-do-dia-mundial-das-criancas_23-2149725957.jpg?semt=ais_hybrid&w=740&q=80"
       alt="Foto de fundo" loading="eager" />
     <div class="details-hero-overlay"></div>
   </div>
@@ -18,9 +18,9 @@
 
 <section class="page-container details-page-content">
   <article class="details-card">
+    @let summary = vaccinationSummary(child);
     <div class="details-card-top">
-      <app-status-badge [status]="vaccineStatus(child)"
-        [label]="child.pendingVaccines === 0 ? 'Completo' : child.pendingVaccines + ' Pendentes'" />
+      <app-status-badge [status]="vaccineStatus(child)" [label]="statusLabel(child)" />
       <ion-icon name="happy-outline" aria-hidden="true"></ion-icon>
     </div>
 
@@ -40,7 +40,7 @@
     <div class="progress-section">
       <div class="progress-header">
         <span class="progress-label">Status de Imunização</span>
-        <span class="progress-value">{{ child.appliedVaccines }} / {{ child.totalVaccines }}</span>
+        <span class="progress-value">{{ summary.applied }} / {{ summary.total }}</span>
       </div>
       <div class="progress-bar">
         <div class="progress-fill" [style.width.%]="vaccineProgress(child)"></div>
@@ -54,15 +54,26 @@
         @if (child.vaccines && child.vaccines.length > 0) {
         <ul class="vaccine-list">
           @for (vaccine of child.vaccines; track vaccine.vaccineId) {
-          <li class="vaccine-item">
-            <div class="vaccine-item-info">
-              <ion-icon [name]="vaccine.applied ? 'checkmark-circle-outline' : 'time-outline'"
-                [class.applied]="vaccine.applied" [class.pending]="!vaccine.applied" aria-hidden="true"></ion-icon>
-              <span class="vaccine-name">{{ vaccine.vaccineName }}</span>
+          <li class="vaccine-item" [class.vaccine-item-overdue]="vaccineItemStatus(vaccine) === 'overdue'">
+            <div class="vaccine-item-main">
+              <div class="vaccine-item-info">
+                <ion-icon [name]="vaccine.applied ? 'checkmark-circle-outline' : 'time-outline'"
+                  [class.applied]="vaccine.applied"
+                  [class.pending]="vaccineItemStatus(vaccine) === 'pending'"
+                  [class.overdue]="vaccineItemStatus(vaccine) === 'overdue'"
+                  aria-hidden="true"></ion-icon>
+                <span class="vaccine-name">{{ vaccine.vaccineName }}</span>
+              </div>
+              <app-status-badge [status]="vaccineItemBadgeStatus(vaccine)"
+                [label]="vaccineItemStatusLabel(vaccine)" />
             </div>
-            <span class="vaccine-date">
-              {{ (vaccine.applied ? vaccine.applicationDate : vaccine.scheduledDate) | date:'dd/MM/yyyy' }}
-            </span>
+
+            <div class="vaccine-dates">
+              <span>Prevista: {{ vaccine.scheduledDate | date:'dd/MM/yyyy' }}</span>
+              @if (vaccine.applicationDate) {
+              <span>Aplicação: {{ vaccine.applicationDate | date:'dd/MM/yyyy' }}</span>
+              }
+            </div>
           </li>
           }
         </ul>

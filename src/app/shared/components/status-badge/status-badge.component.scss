@@ -30,4 +30,9 @@
     background: rgba(253, 167, 105, 0.18);
     color: #a05400;
   }
+
+  &.status-overdue {
+    background: rgba(214, 69, 80, 0.14);
+    color: #b4232f;
+  }
 }

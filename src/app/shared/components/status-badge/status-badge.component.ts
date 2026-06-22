@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
-export type StatusBadgeVariant = 'active' | 'ended' | 'complete' | 'partial' | 'pending';
+export type StatusBadgeVariant = 'active' | 'ended' | 'complete' | 'partial' | 'pending' | 'overdue';
 
 @Component({
   selector: 'app-status-badge',

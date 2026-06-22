@@ -16,6 +16,7 @@ import { Campaign } from '../../shared/model/campaign';
 import { CampaignService } from '../../core/services/campaign.service';
 import { CampaignCardComponent } from '../../shared/components/campaign-card/campaign-card.component';
 import { PageHeaderComponent } from '../../shared/components/page-header/page-header.component';
+import { isCampaignCurrentlyActive } from '../../shared/utils/vaccination-status';
 
 interface HeroSlide {
   image: string;
@@ -59,7 +60,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.campaigns$ = this.campaignService
       .getCampaigns()
-      .pipe(map((campaigns) => campaigns.filter((c) => c.active)));
+      .pipe(map((campaigns) => campaigns.filter((c) => isCampaignCurrentlyActive(c))));
     this.startAutoplay();
   }
 
