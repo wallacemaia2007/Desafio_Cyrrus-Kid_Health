@@ -47,3 +47,9 @@ docs
 
 # Environment files (Firebase credentials)
 /src/environments/
+
+# Firebase cache
+.firebase/
+
+# Build output
+/y
