@@ -2,22 +2,8 @@
   <app-page-header title="Campanhas de Vacinação" subtitle="Acompanhe campanhas ativas e mantenha a vacinação em dia." />
 
   <section class="page-content">
-    @if (activeCount$ | async; as activeCount) {
-    @if (endedCount$ | async; as endedCount) {
-    <div class="summary-card">
-      <div class="summary-stats">
-        <div class="stat">
-          <span class="stat-value">{{ activeCount }}</span>
-          <span class="stat-label">campanha{{ activeCount !== 1 ? 's' : '' }} ativa{{ activeCount !== 1 ? 's' : '' }}</span>
-        </div>
-        <div class="stat-divider"></div>
-        <div class="stat">
-          <span class="stat-value">{{ endedCount }}</span>
-          <span class="stat-label">campanha{{ endedCount !== 1 ? 's' : '' }} encerrada{{ endedCount !== 1 ? 's' : '' }}</span>
-        </div>
-      </div>
-    </div>
-    }
+    @if (stats$ | async; as stats) {
+    <app-summary-card [stats]="stats" />
     }
 
     <ion-segment value="all" (ionChange)="onFilterChange($event)" class="custom-segment">
@@ -34,22 +20,16 @@
 
     @if (filteredCampaigns$ | async; as campaigns) {
     @if (campaigns.length === 0) {
-    <div class="empty-state">
-      <p class="empty-state-title">Nenhuma campanha encontrada.</p>
-      <p class="empty-state-subtitle">Novas campanhas serão exibidas aqui.</p>
-    </div>
+    <app-empty-state title="Nenhuma campanha encontrada." subtitle="Novas campanhas serão exibidas aqui." />
     }
 
-    <div class="campaigns-grid">
+    <app-grid>
       @for (campaign of campaigns; track campaign.id) {
       <app-campaign-card [campaign]="campaign" />
       }
-    </div>
+    </app-grid>
     } @else {
-    <div class="loading-state">
-      <ion-spinner name="crescent" color="primary"></ion-spinner>
-      <p class="loading-text">Carregando campanhas...</p>
-    </div>
+    <app-loading-state message="Carregando campanhas..." />
     }
   </section>
 </section>

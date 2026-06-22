@@ -8,9 +8,10 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { IonSpinner } from '@ionic/angular/standalone';
 import { Observable, interval, map } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { LoadingStateComponent } from '../../shared/components/loading-state/loading-state.component';
+import { GridComponent } from '../../shared/components/grid/grid.component';
 import { Campaign } from '../../shared/model/campaign';
 import { CampaignService } from '../../core/services/campaign.service';
 import { CampaignCardComponent } from '../../shared/components/campaign-card/campaign-card.component';
@@ -24,7 +25,7 @@ interface HeroSlide {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, IonSpinner, CampaignCardComponent, PageHeaderComponent],
+  imports: [CommonModule, RouterLink, CampaignCardComponent, PageHeaderComponent, LoadingStateComponent, GridComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

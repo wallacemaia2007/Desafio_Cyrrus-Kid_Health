@@ -1,0 +1,17 @@
+:host {
+  display: contents;
+}
+
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1.5rem;
+}
+
+.loading-text {
+  margin-top: 1rem;
+  color: #8a8f9a;
+  font-weight: 500;
+}

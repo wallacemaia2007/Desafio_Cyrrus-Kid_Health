@@ -29,20 +29,15 @@
 </section>
 
 <section class="page-container">
-  <div class="section-header">
-    <app-page-header title="Campanhas de Vacinação" subtitle="Confira as campanhas em destaque para o seu filho." />
-    <a routerLink="/campaigns" class="section-link">Ver todas</a>
-  </div>
+  <app-page-header title="Campanhas de Vacinação" subtitle="Confira as campanhas em destaque para o seu filho." viewAllRoute="/campaigns" />
 
   @if (campaigns$ | async; as campaigns) {
-  <div class="campaigns-grid">
+  <app-grid>
     @for (campaign of campaigns; track campaign.id) {
     <app-campaign-card [campaign]="campaign" />
     }
-  </div>
+  </app-grid>
   } @else {
-  <div class="campaigns-loading">
-    <ion-spinner name="crescent" color="primary"></ion-spinner>
-  </div>
+  <app-loading-state />
   }
 </section>

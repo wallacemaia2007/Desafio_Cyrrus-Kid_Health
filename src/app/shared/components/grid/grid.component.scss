@@ -1,0 +1,9 @@
+:host {
+  display: contents;
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--grid-min-width, 280px), 1fr));
+  gap: var(--grid-gap, 1.25rem);
+}

@@ -1,0 +1,9 @@
+<div class="empty-state">
+  @if (icon()) {
+  <ion-icon [name]="icon()" class="empty-icon" aria-hidden="true"></ion-icon>
+  }
+  <p class="empty-state-title">{{ title() }}</p>
+  @if (subtitle()) {
+  <p class="empty-state-subtitle">{{ subtitle() }}</p>
+  }
+</div>

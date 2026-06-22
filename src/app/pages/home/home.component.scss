@@ -151,39 +151,6 @@
     }
 }
 
-// ===== Campaigns section =====
-.section-header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1.75rem;
-    flex-wrap: wrap;
-}
-
-.section-link {
-    font-weight: 700;
-    font-size: 0.9375rem;
-    color: #abc270;
-    text-decoration: none;
-
-    &:hover {
-        text-decoration: underline;
-    }
-}
-
-.campaigns-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.25rem;
-}
-
-.campaigns-loading {
-    display: flex;
-    justify-content: center;
-    padding: 3rem 0;
-}
-
 @media (max-width: 575px) {
     .hero {
         height: 78vh;

@@ -1,3 +1,15 @@
+@if (viewAllRoute()) {
+<div class="section-header">
+  <div class="page-header">
+    <h2 class="section-title">{{ title() }}</h2>
+    @if (subtitle()) {
+    <p class="section-subtitle">{{ subtitle() }}</p>
+    }
+    <ng-content />
+  </div>
+  <a class="section-link" [routerLink]="viewAllRoute()">{{ viewAllLabel() }}</a>
+</div>
+} @else {
 <section class="page-header">
   <h2 class="section-title">{{ title() }}</h2>
   @if (subtitle()) {
@@ -5,3 +17,4 @@
   }
   <ng-content />
 </section>
+}

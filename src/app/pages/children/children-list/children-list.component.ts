@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { IonSearchbar, IonSpinner, IonIcon } from '@ionic/angular/standalone';
+import { IonSearchbar, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
   happyOutline,
@@ -11,6 +11,10 @@ import {
 } from 'ionicons/icons';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { StatusBadgeComponent, StatusBadgeVariant } from '../../../shared/components/status-badge/status-badge.component';
+import { GridComponent } from '../../../shared/components/grid/grid.component';
+import { LoadingStateComponent } from '../../../shared/components/loading-state/loading-state.component';
+import { EmptyStateComponent } from '../../../shared/components/empty-state/empty-state.component';
 import { Child } from '../../../shared/model/child';
 import { ChildService } from '../../../core/services/child.service';
 import { PageHeaderComponent } from '../../../shared/components/page-header/page-header.component';
@@ -18,7 +22,7 @@ import { PageHeaderComponent } from '../../../shared/components/page-header/page
 @Component({
   selector: 'app-child-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, IonSearchbar, IonSpinner, IonIcon, PageHeaderComponent],
+  imports: [CommonModule, RouterLink, IonSearchbar, IonIcon, PageHeaderComponent, StatusBadgeComponent, GridComponent, LoadingStateComponent, EmptyStateComponent],
   templateUrl: './children-list.component.html',
   styleUrls: ['./children-list.component.scss'],
 })
@@ -49,7 +53,7 @@ export class ChildrenListComponent {
     this.searchTerm$.next(term);
   }
 
-  getVaccineStatus(child: Child): string {
+  getVaccineStatus(child: Child): StatusBadgeVariant {
     if (child.pendingVaccines === 0) return 'complete';
     if (child.appliedVaccines > 0) return 'partial';
     return 'pending';

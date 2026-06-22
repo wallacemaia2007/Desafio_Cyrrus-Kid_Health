@@ -43,29 +43,6 @@
   }
 }
 
-.campaign-status {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 0.3rem 0.75rem;
-  border-radius: 999px;
-
-  &.status-active {
-    background: rgba(171, 194, 112, 0.18);
-    color: #5c7331;
-  }
-
-  &.status-ended {
-    background: rgba(138, 143, 154, 0.15);
-    color: #6b7280;
-  }
-
-  &.status-static {
-    align-self: flex-start;
-  }
-}
-
 .campaign-title {
   font-size: 1.25rem;
   font-weight: 700;
@@ -108,18 +85,4 @@
   .detail-section {
     flex: 1;
   }
-}
-
-.loading-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 4rem 1.5rem;
-}
-
-.loading-text {
-  margin-top: 1rem;
-  color: #8a8f9a;
-  font-weight: 500;
 }

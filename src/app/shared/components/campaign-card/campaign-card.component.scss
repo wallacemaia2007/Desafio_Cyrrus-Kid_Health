@@ -32,25 +32,6 @@
   }
 }
 
-.campaign-status {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 0.3rem 0.75rem;
-  border-radius: 999px;
-
-  &.status-active {
-    background: rgba(171, 194, 112, 0.18);
-    color: #5c7331;
-  }
-
-  &.status-ended {
-    background: rgba(138, 143, 154, 0.15);
-    color: #6b7280;
-  }
-}
-
 .campaign-title {
   font-size: 1.125rem;
   font-weight: 700;
