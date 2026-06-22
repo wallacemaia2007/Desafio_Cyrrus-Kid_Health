@@ -1,37 +1,37 @@
-<ion-header [translucent]="true" class="ion-no-border">
-    <ion-toolbar class="transition-all duration-300" [class.header-scrolled]="isScrolled()">
+<ion-header [translucent]="true" class="ion-no-border" appScrollHide>
+  <ion-toolbar>
 
-        <ion-buttons slot="start">
-            <a routerLink="/" (click)="scrollTo($event, '#hero')"
-                class="group flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
-                aria-label="Ir para o início">
-                <span
-                    class="block text-lg md:text-xl font-extrabold tracking-tight text-secondary transition-transform duration-300 ease-out group-hover:scale-110">
-                    Kid Health
-                </span>
-            </a>
-        </ion-buttons>
+    <ion-buttons slot="start">
+      <a routerLink="/" (click)="scrollTo($event, '#hero')"
+        class="group flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
+        aria-label="Ir para o início">
+        <span
+          class="block text-lg md:text-xl font-extrabold tracking-tight text-secondary transition-transform duration-300 ease-out group-hover:scale-110">
+          Kid Health
+        </span>
+      </a>
+    </ion-buttons>
 
-        <nav class="hidden md:block px-8">
-            <ul class="flex items-center justify-center gap-1">
-                @for (link of navLinks; track link.route) {
-                <li>
-                    <a [routerLink]="link.route" routerLinkActive="text-primary bg-primary/10"
-                        [routerLinkActiveOptions]="{exact: link.route === '/'}"
-                        class="relative px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 text-secondary hover:text-primary hover:bg-primary/10">
-                        {{ link.label }}
-                    </a>
-                </li>
-                }
-            </ul>
-        </nav>
+    <nav class="hidden md:block px-8">
+      <ul class="flex items-center justify-center gap-1">
+        @for (link of navLinks; track link.route) {
+        <li>
+          <a [routerLink]="link.route" routerLinkActive="text-primary bg-primary/10"
+            [routerLinkActiveOptions]="{exact: link.route === '/'}"
+            class="relative px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 text-secondary hover:text-primary hover:bg-primary/10">
+            {{ link.label }}
+          </a>
+        </li>
+        }
+      </ul>
+    </nav>
 
-        <ion-buttons slot="end">
-            <ion-button (click)="toggleMenu()" class="md:hidden text-secondary"
-                [attr.aria-label]="isMenuOpen() ? 'Fechar Menu' : 'Abrir Menu'">
-                <ion-icon slot="icon-only" [name]="isMenuOpen() ? 'close-outline' : 'menu-outline'"></ion-icon>
-            </ion-button>
-        </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleMenu()" class="md:hidden text-secondary"
+        [attr.aria-label]="isMenuOpen() ? 'Fechar Menu' : 'Abrir Menu'">
+        <ion-icon slot="icon-only" [name]="isMenuOpen() ? 'close-outline' : 'menu-outline'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
 
-    </ion-toolbar>
+  </ion-toolbar>
 </ion-header>

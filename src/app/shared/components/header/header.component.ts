@@ -1,9 +1,8 @@
-import { Component, ChangeDetectionStrategy, signal, inject, HostListener } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import {
   MenuController,
-  Platform,
   IonHeader,
   IonToolbar,
   IonButtons,
@@ -13,6 +12,7 @@ import {
 import { addIcons } from 'ionicons';
 import { menuOutline, closeOutline } from 'ionicons/icons';
 import { NAV_ITEMS } from '../../model/nav-items';
+import { ScrollHideDirective } from '../../../core/directive/scroll-hide.directive';
 
 @Component({
   selector: 'app-header',
@@ -26,6 +26,7 @@ import { NAV_ITEMS } from '../../model/nav-items';
     IonButtons,
     IonButton,
     IonIcon,
+    ScrollHideDirective,
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
@@ -33,28 +34,12 @@ import { NAV_ITEMS } from '../../model/nav-items';
 })
 export class HeaderComponent {
   private readonly menuCtrl = inject(MenuController);
-  private readonly platform = inject(Platform);
 
-  public isScrolled = signal<boolean>(false);
-  public isMobile = signal<boolean>(false);
   public readonly isMenuOpen = signal<boolean>(false);
   public readonly navLinks = NAV_ITEMS;
 
   constructor() {
     addIcons({ menuOutline, closeOutline });
-    this.checkPlatform();
-  }
-
-  @HostListener('window:scroll', [])
-  onWindowScroll(): void {
-    const scrollOffset =
-      window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    this.isScrolled.set(scrollOffset > 50);
-  }
-
-  @HostListener('window:resize', [])
-  onResize(): void {
-    this.checkPlatform();
   }
 
   public async toggleMenu(): Promise<void> {
@@ -80,9 +65,5 @@ export class HeaderComponent {
       element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
     }
     this.closeMenu();
-  }
-
-  private checkPlatform(): void {
-    this.isMobile.set(this.platform.is('mobile') || window.innerWidth < 768);
   }
 }
