@@ -1,7 +1,128 @@
-<div class="page-container">
-  <app-page-header title="Cadastro de Criança" />
+<section class="page-container">
+  <app-page-header [title]="isEditMode() ? 'Editar Criança' : 'Nova Criança'"
+    subtitle="Preencha os dados da criança e gerencie as vacinas.">
+    <a class="back-link" routerLink="/children">
+      <ion-icon name="arrow-back-outline" aria-hidden="true"></ion-icon>
+      Voltar
+    </a>
+  </app-page-header>
 
   <section class="page-content">
-    <p>children-form works!</p>
+    @if (message(); as msg) {
+    <div class="form-message" [class.error]="isError()">
+      <span>{{ msg }}</span>
+    </div>
+    }
+
+    @if (loading()) {
+    <app-loading-state message="Carregando dados da criança..." />
+    } @else {
+    <article class="details-card">
+      <h3 class="card-title">Informações da Criança</h3>
+
+      <div class="details-body">
+        <div class="detail-section">
+          <span class="detail-label">Nome completo *</span>
+          <input class="form-input" type="text" placeholder="Nome da criança"
+            [value]="form().name"
+            (input)="updateForm('name', $any($event.target).value)" />
+        </div>
+
+        <div class="detail-row">
+          <div class="detail-section">
+            <span class="detail-label">Data de Nascimento *</span>
+            <input class="form-input" type="date"
+              [value]="form().birthDate"
+              (input)="updateForm('birthDate', $any($event.target).value)" />
+          </div>
+          <div class="detail-section">
+            <span class="detail-label">Responsável</span>
+            <input class="form-input" type="text" placeholder="Nome do responsável"
+              [value]="form().responsible"
+              (input)="updateForm('responsible', $any($event.target).value)" />
+          </div>
+        </div>
+
+        <div class="detail-row detail-row-3">
+          <div class="detail-section">
+            <span class="detail-label">Total Vacinas</span>
+            <input class="form-input" type="number" min="0"
+              [value]="form().totalVaccines"
+              (input)="updateForm('totalVaccines', $any($event.target).valueAsNumber)" />
+          </div>
+          <div class="detail-section">
+            <span class="detail-label">Aplicadas</span>
+            <input class="form-input" type="number" min="0"
+              [value]="form().appliedVaccines"
+              (input)="updateForm('appliedVaccines', $any($event.target).valueAsNumber)" />
+          </div>
+          <div class="detail-section">
+            <span class="detail-label">Pendentes</span>
+            <input class="form-input" type="number" min="0"
+              [value]="form().pendingVaccines"
+              (input)="updateForm('pendingVaccines', $any($event.target).valueAsNumber)" />
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="vaccines-header">
+        <h3 class="card-title">Vacinas</h3>
+        <button class="btn-add-vaccine" (click)="addVaccine()" type="button">
+          <ion-icon name="add-outline" aria-hidden="true"></ion-icon>
+          Adicionar
+        </button>
+      </div>
+
+      @if (form().vaccines.length === 0) {
+      <p class="empty-text">Nenhuma vacina cadastrada. Clique em "Adicionar".</p>
+      }
+
+      @for (vaccine of form().vaccines; track idx; let idx = $index) {
+      <div class="vaccine-item">
+        <div class="vaccine-row">
+          <input class="form-input form-input-sm" type="text" placeholder="ID (v1)"
+            [value]="vaccine.vaccineId"
+            (input)="updateVaccine(idx, 'vaccineId', $any($event.target).value)" />
+          <input class="form-input form-input-flex" type="text" placeholder="Nome da vacina"
+            [value]="vaccine.vaccineName"
+            (input)="updateVaccine(idx, 'vaccineName', $any($event.target).value)" />
+          <label class="form-checkbox">
+            <input type="checkbox"
+              [checked]="vaccine.applied"
+              (change)="updateVaccine(idx, 'applied', $any($event.target).checked)" />
+            Aplicada
+          </label>
+          <button class="btn-remove-vaccine" (click)="removeVaccine(idx)" type="button" title="Remover">
+            <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+          </button>
+        </div>
+        <div class="vaccine-row">
+          <div class="detail-section">
+            <span class="detail-label-sm">Data agendada</span>
+            <input class="form-input" type="date"
+              [value]="vaccine.scheduledDate"
+              (input)="updateVaccine(idx, 'scheduledDate', $any($event.target).value)" />
+          </div>
+          <div class="detail-section">
+            <span class="detail-label-sm">Data aplicação</span>
+            <input class="form-input" type="date"
+              [value]="vaccine.applicationDate"
+              (input)="updateVaccine(idx, 'applicationDate', $any($event.target).value)" />
+          </div>
+        </div>
+      </div>
+      }
+
+      <div class="form-actions">
+        <a class="btn-cancel" routerLink="/children">Cancelar</a>
+        <button class="btn-save" (click)="save()" [disabled]="saving()">
+          <ion-icon name="save-outline" aria-hidden="true"></ion-icon>
+          {{ saving() ? 'Salvando...' : isEditMode() ? 'Atualizar Criança' : 'Salvar Criança' }}
+        </button>
+      </div>
+    </article>
+    }
   </section>
-</div>
+</section>

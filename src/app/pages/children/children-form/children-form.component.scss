@@ -1,0 +1,284 @@
+:host {
+  --ion-background-color: #f5f7fa;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #8a8f9a;
+  text-decoration: none;
+  margin-bottom: 0.75rem;
+  transition: color 0.2s ease;
+
+  ion-icon {
+    font-size: 1.125rem;
+  }
+
+  &:hover {
+    color: #473c33;
+  }
+}
+
+.form-message {
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  background: #d4edda;
+  color: #155724;
+
+  &.error {
+    background: #f8d7da;
+    color: #721c24;
+  }
+}
+
+.details-card {
+  background: #ffffff;
+  border: 1px solid #e8ecf1;
+  border-radius: 22px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #473c33;
+  margin: 0 0 1.25rem;
+}
+
+.details-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.detail-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #8a8f9a;
+}
+
+.detail-label-sm {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #8a8f9a;
+}
+
+.detail-row {
+  display: flex;
+  gap: 1.5rem;
+
+  .detail-section {
+    flex: 1;
+  }
+}
+
+.detail-row-3 {
+  .detail-section {
+    flex: 1;
+  }
+}
+
+.form-input {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: #473c33;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+
+  &:focus {
+    border-color: #abc270;
+  }
+
+  &::placeholder {
+    color: #bbb;
+  }
+}
+
+.form-input-sm {
+  max-width: 90px;
+}
+
+.form-input-flex {
+  flex: 1;
+}
+
+.form-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #555;
+  white-space: nowrap;
+  cursor: pointer;
+
+  input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+}
+
+.section-divider {
+  height: 1px;
+  background: #e8ecf1;
+  margin: 1.5rem 0;
+}
+
+.vaccines-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+
+  .card-title {
+    margin-bottom: 0;
+  }
+}
+
+.btn-add-vaccine {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  background: #abc270;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  ion-icon {
+    font-size: 1rem;
+  }
+
+  &:hover {
+    background: #95aD5D;
+  }
+}
+
+.empty-text {
+  text-align: center;
+  color: #bbb;
+  font-size: 0.85rem;
+  padding: 24px 0;
+  margin: 0;
+}
+
+.vaccine-item {
+  background: #f8f9fa;
+  border: 1px solid #e8ecf1;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+
+.vaccine-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .detail-section {
+    flex: 1;
+  }
+}
+
+.btn-remove-vaccine {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #dc3545;
+  border: none;
+  padding: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #fce4e4;
+  }
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  margin-top: 1rem;
+  border-top: 1px solid #e8ecf1;
+}
+
+.btn-cancel {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 24px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #8a8f9a;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #473c33;
+  }
+}
+
+.btn-save {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 24px;
+  background: #abc270;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  ion-icon {
+    font-size: 1.1rem;
+  }
+
+  &:hover {
+    background: #95aD5D;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

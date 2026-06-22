@@ -1,9 +1,15 @@
 <section class="page-container">
   <app-page-header title="Vacinação Infantil"
     subtitle="Localize a criança no sistema para verificar o status de vacinação.">
-    <ion-searchbar placeholder="Digite o nome da criança..." (ionInput)="onSearch($event)" class="custom-searchbar"
-      animated="true">
-    </ion-searchbar>
+    <div class="list-header-actions">
+      <ion-searchbar placeholder="Digite o nome da criança..." (ionInput)="onSearch($event)" class="custom-searchbar"
+        animated="true">
+      </ion-searchbar>
+      <a class="btn-new-child" routerLink="/children/new">
+        <ion-icon name="add-outline" aria-hidden="true"></ion-icon>
+        Nova Criança
+      </a>
+    </div>
   </app-page-header>
 
   <section class="page-content">

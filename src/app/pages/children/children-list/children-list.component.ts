@@ -8,6 +8,7 @@ import {
   calendarOutline,
   searchOutline,
   shieldCheckmarkOutline,
+  addOutline,
 } from 'ionicons/icons';
 import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -32,7 +33,7 @@ export class ChildrenListComponent {
   filteredChildren$: Observable<Child[]>;
 
   constructor(private childService: ChildService) {
-    addIcons({ happyOutline, calendarOutline, searchOutline, shieldCheckmarkOutline });
+    addIcons({ happyOutline, calendarOutline, searchOutline, shieldCheckmarkOutline, addOutline });
 
     this.allChildren$ = this.childService.getChildren();
     this.filteredChildren$ = combineLatest([
